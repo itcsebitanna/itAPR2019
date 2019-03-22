@@ -1,0 +1,138 @@
+SQL> create table sempls( eno number(10) primary key, ename varchar2(10), edob
+varchar2(15), gender varchar2(10), doj varchar2(15),desg varchar2(30), bpay number(10), dno
+number(10));
+Table created.
+SQL> insert into sempls values( 1, 'bala','15/1/84','m','16th july','lec',7000,1);
+1 row created.
+SQL> insert into sempls values( 2, 'kala','13/9/84','m','18th july','lec',10000,2);
+1 row created.
+SQL> insert into sempls values( 3, 'mala','17th june','f','19th june','lec',19000,1);
+1 row created.
+SQL> insert into sempls values(4, 'nila','20th june','f','19th june','sr.lec',20000,1);
+1 row created.
+SQL> insert into sempls values( 5, 'vina','2nd jan','f','12th july','prof.',50000,2);
+1 row created.
+SQL> select * from sempls;
+ ENO ENAME EDOB GENDER DOJ DESG BPAY DNO
+--------- ---------- --------------- ---------- --------------- -------------------------------------- ---------
+ 1 bala 15/1/84 m 16th july lec 7000 1
+ 2 kala 13/9/84 m 18th july lec 10000 2
+ 3 mala 17th june f 19th june lec 19000 1
+ 4 nila 20th june f 19th june sr.lec 20000 1
+ 5 vina 2nd jan f 12th july prof. 50000 2
+TO CREATE ‘SDMENTS’ TABLE
+SQL> create table sdments( dno number(10), dname varchar2(30));
+Table created.
+SQL> insert into sdments values (1, 'cse');
+1 row created.
+SQL> insert into sdments values (2, 'it');
+1 row created.
+SQL> select * from sdments;
+ DNO DNAME
+--------- ------------------------------
+ 1 cse
+ 2 it
+TO CREATE ‘SPROS’ TABLE
+SQL> create table spros (pno number(20) primary key, pname varchar2(30),dno number(10));
+Table created.
+SQL> insert into spros values(81, 'aaa',1);
+1 row created.
+SQL> insert into spros values(82, 'bbb',1);
+1 row created.
+SQL> insert into spros values(83, 'ccc',1);
+1 row created.
+SQL> insert into spros values(84, 'ddd',2);
+1 row created.
+SQL> insert into spros values (85, 'eee',2);
+1 row created.
+SQL> select * from spros;
+ PNO PNAME DNO
+--------- ------------------------------ ---------
+ 81 aaa 1
+ 82 bbb 1
+ 83 ccc 1
+ 84 ddd 2
+ 85 eee 2
+TO CREATE ‘SWORKS’ TABLE
+SQL> create table sworks (eno number(10) , pno number(20) , datework varchar2(20) , intime
+number(10),outtime number(10));
+Table created.
+SQL> insert into sworks values(1,81,'11th july',9,10);
+1 row created.
+SQL> insert into sworks values(1,82,'11th july',10,11);
+1 row created.
+SQL> insert into sworks values(1,83,'11th july',11,12);
+1 row created.
+SQL> insert into sworks values(1,84,'11th july',12,1);
+1 row created.
+SQL> insert into sworks values(1,85,'11th july',1,2);
+1 row created.
+SQL> insert into sworks values(2,85,'12th july',8,9);
+1 row created.
+SQL> select * from sworks;
+ ENO PNO DATEWORK INTIME OUTTIME
+--------- --------- -------------------- --------- ---------
+ 1 81 11th july 9 10
+ 1 82 11th july 10 11
+ 1 83 11th july 11 12
+ 1 84 11th july 12 1
+ 1 85 11th july 1 2
+ 2 85 12th july 8 9
+QUERY 1
+ This querylists the details of employees who earn a basic pay that is less than the average
+basic pay of the employees.
+SQL> select * from sempls where bpay < (select avg(bpay) from sempls);
+ ENO ENAME EDOB GENDER DOJ DESG BPAY DNO
+------- ---------- --------------- ------------------ ------- ------------------ ------------ ---------
+ 1 bala 15/1/84 m 16th july lec 7000 1
+ 2 kala 13/9/84 m 18th july lec 10000 2
+ 3 mala 17th june f 19th june lec 19000 1
+ 4 nila 20th june f 19th june sr.lec 20000 1
+QUERY 2
+ This query lists the department number , number of employees in each department.
+SQL> select dno,count(eno) from sempls group by dno;
+ DNO COUNT(ENO)
+ --------- ----------
+ 1 3
+ 2 2
+QUERY 3
+ This query lists the details of employees who earn a basic pay in the range 10000 to 20000.
+SQL> select * from sempls where bpay between 10000 and 20000;
+ ENO ENAME EDOB GENDER DOJ DESG BPAY DNO
+ ------- --------- ---------- ----------- ------- --------------- ------------------------------
+ 2 kala 13/9/84 m 18th july lec 10000 2
+ 3 mala 17th june f 19th june lec 19000 1
+ 4 nila 20th june f 19th june sr.lec 20000 1
+QUERY 4
+ This query lists the details of employees who have worked in projects controlled by
+department name = cse.
+SQL> select * from sempls, sdments,spros where sdments.dno=spros.dno and
+sdments.dno=sempls.dno and dname='cse';
+ ENO ENAME EDOB GENDER DOJ DESG
+--------- ---------- --------------- ---------- --------------- ------------------------------
+ BPAY DNO DNO DNAME PNO
+--------- --------- --------- ------------------------------ ---------
+PNAME DNO
+------------------------------ ---------
+ 1 bala 15/1/84 m 16th july lec
+ 7000 1 1 cse 81
+aaa 1
+ 3 mala 17th june f 19th june lec
+ 19000 1 1 cse 81
+aaa 1
+ 4 nila 20th june f 19th june sr.lec
+ 20000 1 1 cse 81
+aaa 1
+QUERY 5
+ This query lists the employee number, employee name, department number, date worked if
+the employee has worked in more than 4 projects on a day.
+SQL> select sempls.eno,ename,dno,datework from sempls,sworks where sempls.eno in(select
+eno from (select eno,datework from sworks group by eno,datework having count(pno)>4)) and
+datework in (select datework from (select eno,datework from sworks group by eno,datework ha
+ving count(pno)>4));
+ ENO ENAME DNO DATEWORK
+--------- ---------- --------- --------------------
+ 1 bala 1 11th july
+ 1 bala 1 11th july
+ 1 bala 1 11th july
+ 1 bala 1 11th july
