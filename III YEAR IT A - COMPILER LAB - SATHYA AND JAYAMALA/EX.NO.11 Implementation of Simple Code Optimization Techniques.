@@ -1,0 +1,167 @@
+AIM
+To write a C program to implement simple code optimization technique.
+
+INTRODUCTION
+Optimization is a program transformation technique, which tries to improve the code by making it consume less resource (i.e. CPU, memory) and deliver high speed.
+In optimization, high-level general programming constructs are replaced by very efficient low level programming codes. A code optimizing process must follow the three rules given
+below:
+The output code must not, in any way, change the meaning of the program.
+	Optimization should increases the speed of the program and if possible, the programshould demand less number of resources.
+	Optimization should itself be fast and fast and should not delay the overall compiling process.
+Efforts for an optimized code can be made at various levels of compiling the process.
+	At the beginning, users can change/rearrange the code or use better algorithms to write the code.
+	After generating intermediate code, the compiler can modify the intermediate code by address calculations and improving loops.
+	While producing the target machine code, the compiler can make use of memory hierarchy and cpu registers.
+Optimization can be categorized broadly into two types: Machine independent and Machine
+dependent.
+
+Machine independent optimization
+
+In this optimization, the compiler takes in the intermediate code and transforms a part of the code that does not involve any CPU registers and/or absolute memory locations.
+For Example:
+do
+{
+item=10;
+value=value+item;
+}while(value<100);
+
+This code involves repeated assignment of the identifier item, which if we put this way:
+
+item=10;
+do
+{
+value=value+item;
+}while(value<100);
+
+Should not only save the cpu cycles, but can be used on any processor.
+
+Machine dependent optimization
+
+Machine dependent optimization is done after the target code has been generated and when the code is transformed according to the target machine architecture. It involves CPU registers and may have absolute memory references rather than relative references. Machine dependent optimizers put efforts to take maximum advantage of memory hierarchy.
+
+ALGORITHM
+1. Start the program
+2. Declare the variables and functions.
+3. Enter the expressionand state it in the variable a, b, c.
+4. Calculate the variables b & c with ‘temp’ and store it in f1 and f2.
+5. If(f1=null && f2=null) then expression could not be optimized.
+6. Print the results.
+7. Stop the program.
+
+PROGRAM
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+struct op
+{
+char l;
+char r[20];
+}
+op[10],pr[10];
+void main()
+{
+int a,i,k,j,n,z=0,m,q;
+char *p,*l;
+char temp,t;
+char *tem;
+clrscr();
+printf("Enter the Number of Values:");
+scanf("%d",&n);
+for(i=0;i<n;i++)
+{
+printf("left: ");
+scanf(" %c",&op[i].l);
+printf("right: ");
+scanf(" %s",&op[i].r);
+}
+printf("Intermediate Code\n") ;
+for(i=0;i<n;i++)
+{
+printf("%c=",op[i].l);
+printf("%s\n",op[i].r);
+}
+for(i=0;i<n-1;i++)
+{
+temp=op[i].l;
+for(j=0;j<n;j++)
+{
+p=strchr(op[j].r,temp);
+if(p)
+{
+pr[z].l=op[i].l;
+strcpy(pr[z].r,op[i].
+r);
+z++;
+}
+}
+}
+pr[z].l=op[n-1].l;
+strcpy(pr[z].r,op[n-1].r);
+z++;
+printf("\nAfter Dead Code Elimination\n");
+for(k=0;k<z;k++)
+{
+printf("%c\t=",pr[k].l);
+printf("%s\n",pr[k].r);
+}
+for(m=0;m<z;m++)
+{
+tem=pr[m].r;
+for(j=m+1;j<z;j++)
+{
+p=strstr(tem,pr[j].r);
+if(p)
+{
+t=pr[j].l;
+pr[j].l=pr[m].l;
+for(i=0;i<z;i++)
+{
+l=strchr(pr[i].r,t) ;
+if(l)
+{
+a=l-pr[i].r;
+printf("pos: %d\n",a);
+pr[i].r[a]=pr[m].l;
+}}}}}
+printf("Eliminate Common Expression\n");
+for(i=0;i<z;i++)
+{
+printf("%c\t=",pr[i].l);
+printf("%s\n",pr[i].r);
+}
+for(i=0;i<z;i++)
+{
+for(j=i+1;j<z;j++)
+{
+q=strcmp(pr[i].r,pr[j].r);
+if((pr[i].l==pr[j].l)&&!q)
+{
+pr[i].l='\0';
+}
+}
+}
+printf("Optimized Code\n");
+for(i=0;i<z;i++)
+{
+if(pr[i].l!='\0')
+{
+printf("%c=",pr[i].l);
+printf("%s\n",pr[i].r);
+}
+}
+getch();
+}
+
+Output:
+Enter the number of values
+2
+a=2+6
+c=a+b
+After dead code elimination
+a=2+6
+c=a+b
+After common expresssion elimination
+a=2+6
+c=a+b
+optimized code
+c=8+b
