@@ -1,0 +1,160 @@
+EXPERIMENT NO 1
+1. Write a query to create a table employee with empno, ename, designation, and salary.
+2. Write a query to display the column name and datatype of the table employee.
+3. Write a query for create a from an existing table with all the fields
+4. Write a query for create a from an existing table with selected fields
+5. Write a query for create a new table from an existing table without any record:
+ALTER & MODIFICATION ON TABLE
+6. Write a Query to Alter the column EMPNO NUMBER (4) TO EMPNO NUMBER
+7. (6).
+8. Write a Query to Alter the table employee with multiple columns (EMPNO,
+9. ENAME.)
+10. Write a query to add a new column in to employee
+11. Write a query to add multiple columns in to employee
+12. Write a query to drop a column from an existing table employee
+REMOVE / DROP
+13. Write a query to drop a column from an existing table employee
+14. Write a query to drop multiple columns from employee
+15. Write a query to rename table emp to employee
+CONSTRAINTS USING TABLE CREATION
+16. Write a query to create primary constraints with column level
+17. Write a query to create primary constraints with column level with naming Convention
+18. Write a query to create primary constraints with table level with naming convention
+19. Write a query to create primary constraints with alter command
+20. Write a query to create foreign key constraints with column level
+21. Write a query to create foreign key constraints with Table level
+22. Write a query to create foreign key constraints with Table level with alter command.
+23. Write a query to create Check constraints with column level
+24. Write a query to create Check constraints with table level
+25. Write a query to create Check constraints with table level using alter command.
+26. Write a query to create unique constraints with table level and column level
+27. Write a query to create NULL and Not Null constraints with column level
+28. Write a query to disable and enable the constraints
+29. Write a query to insert the records in to employee using substitution method.
+30. Write a query to update the records from employee.
+31. Write a query to update multiple records from employee
+32. Write a query to delete records from employee.
+33. Write a query to implement the Save Point and Rollback.
+EXPERIMENT NO 2
+34. Write a query to retrieve name and address of all employees who work for the ‘Research’
+department.
+35. Write a query to retrieve employee’s first and last name and first and last name of his or her
+immediate supervisor.
+36. Write a query to retrieve list of employees and the projects they are working on, ordered by
+department and with in each department, ordered alphabetically by last name, first name.
+37. For every project located in ‘Stafford’, list the project number, the controlling department
+number and the department manager’s last name, birth date.
+38. Find the sum of the salaries of all employees, the maximum salary, the minimum salary and
+the average salary.
+39. Find the sum of the salaries of all employees, the maximum salary, the minimum salary and
+the average salary of all employees of the ‘Research’ department.
+40. Count the number of employees working in the ‘Research’ department.
+41. For each department, retrieve the department number, the number of employees in the
+department and their average salary.
+42. For each project, retrieve the project number, Project name and the number of employees who
+work on that project.
+43. For each project on which more than two employees work, retrieve the project number, project
+name and the number of employees who work on the project.
+44. For each project, retrieve the project number, Project name and the number of employees from
+department 5 who work on the project.
+45. Write a nested query to retrieve the name of each employee who has a dependent with the same
+first name and same sex as the employee.
+58 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+46. Write a query to show resulting salaries if every employee working on ‘ProductX’ project is
+given a 10 percent raise.
+47. For each department that has more than two employees, retrieve the department number and
+the number of its employees who are making more than or equal to $30,000.
+48. Write a nested query to retrieve the names of employees who have no dependents.
+49. Write a nested query to list the names of managers who have at least one dependent.
+50. Write a nested query to retrieve the names of all employees who have two or more dependents
+51. Write a nested query to retrieve the SSNs of all employees who work on project number 1, 2
+or 3.
+52. Write a nested query to retrieve the names of all employees whose salary is greater than the
+salary of all the employees in department 5.
+EXPERIMENT NO 3
+53. Create a view all_customers consisting branches and their customers.
+54. Select all the customers from all_customers view.
+55. Create a view Perryridge_customers consisting customers of Perryridge branch using
+all_customers view.
+56. Following is the sequence query creating sequence in ascending order.
+57. Following is the sequence query creating sequence in descending order.
+58. How to create and drop a synonym in Oracle.
+EXPERIMENT NO 4
+59. Write PL/SQL code to UPDATE values in created tables by using Implicit Cursors.
+60. Write PL/SQL code to display Employee details using Explicit Cursors.
+61. Write PL/SQL code in Cursor to display employee names and salary.
+62. Write PL/SQL Programs in Cursors using two cursors at a time.
+63. Write PL/SQL Programs in Cursors using Loops.
+64. To write a Cursor to display the list of employees who are Working as a Managers or Analyst.
+65. Write pl/sql code in cursor by using while loop.
+
+EXPERIMENT NO 5
+66. Write PL/SQL code in Procedure to find Reverse number
+67. Write PL/SQL code in Procedure to find Factorial of a given number by using call procedure.
+68. Write a Procedure to check the given number is prime or not by using call procedure.
+69. Write a procedure to retrieve the salary of a particular employee
+70. Write a procedure to work with Arthimetic operations.
+Functions:
+71. Write a Function to check the given number is prime or not.
+72. Write pl./sql code in Function for Factorialnumber.
+EXPERIMENT NO 6 & 7
+Error handling and Exception
+73. Write a PL/SQL block to handle the following BUILT-IN EXCEPTIONS.
+Triggers
+74. Write pl/sql code for before insert Trigger program
+75. Write pl/sql code for After inser Trigger
+76. Write pl/sql code for Before Update statement Trigger
+77. Write pl/sql code for each row Before update Trigger.
+78. Write pl/sql code for If Statement Trigger.
+79. Write pl/sql code in Trigger not to accept the existing Empno (Unique no)
+80. Write pl/sql code using Trigger to salary with more than old salary.
+EXPERIMENT NO 8
+81. 1. Consider the database for a college and design an ER diagram. Write the query for the
+following.
+(i) Create the tables:
+Student (sid, sname, sex, dob,dno)
+Department (dno, dname)
+Faculty (F_id, fname, designation, salary,dno)
+Course (cid, cname, credits,dno)
+Register (sid,cid,sem )
+Teaching (f_id,cid,sem)
+Hostel(hid,hname,seats,)
+
+(ii) Include the necessary constraints NOT NULL, DEFAULT, CHECK, and PRIMARY KEY,
+UNIQUE.
+(iii)Create a database college
+(iv) Use college as the current database
+(v) Display all the tables in college database
+(vi) Describe the structure of all tables
+(vii) Modify the student table to add a new field ‘grade’
+82. Consider the database for a banking enterprise. Write the queries for the below questions.
+(i) Create the following tables
+Table Attributes
+customer cid, cname, loc, sex, dob
+Bank_brn bcode, bloc, bsate
+Deposit Dacno, dtype, ddate, damt
+Loan Lacno, ltype, ldate, lamt
+Accounts_in Bcode, cid
+depositor cid, dacno
+borrower cid, lacno
+(ii) Include necessary constraints.
+(iii) Tables are created under the database ‘bank’
+(iv) Display all the tables in bank database
+(v) Describe the structure of all tables
+(vi) Delete tables
+EXPERIMENT NO 10
+ Passport Automation System.
+ Book Bank
+ Exam Registration
+ Stock Maintenance System.
+ Online Course Reservation System
+ E-Ticketing
+ Software Personnel Management System
+ Credit Card Processing
+ E-Book Management System
+ Recruitment System
+ Foreign Trading System
+ Conference Management System
+ BPO Management System
+ Library Management System
+ Student Information System
