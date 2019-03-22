@@ -1,0 +1,108 @@
+IMPLEMENTING SYMBOL TABLE
+AIM:
+To write a program for implementing Symbol Table using C.
+INTRODUCTION:
+A Symbol table is a data structure used by a language translator such as a compiler or interpreter, where each identifier in a program’s source code is associated with information relating to its declaration or appearance in the source
+Possible entries in a symbol table: 
+1.	Name : a string
+2.	Attribute:
+a.	Reserved word
+b.	Variable name
+c.	Type Name
+d.	Procedure name
+e.	Constant name 
+3.	Data type 
+4.	Scope information: where it can be used. 
+5.	Storage allocation
+
+ALGORITHM: 
+1.	Start the program for performing insert, display, delete, search and modify option in symbol table
+2.	Define the structure of the Symbol Table
+3.	Enter the choice for performing the operations in the symbol Table
+4.	If the entered choice is 1, search the symbol table for the symbol to be inserted. If the symbol is already present, it displays “Duplicate Symbol”. Else, insert the symbol and the corresponding address in the symbol table.
+5.	If the entered choice is 2, the symbols present in the symbol table are displayed.
+6.	If the entered choice is 3, the symbol to be deleted is searched in the symbol table. 
+7.	If it is not found in the symbol table it displays “Label Not found”. Else, the symbol is deleted.
+8.	If the entered choice is 5, the symbol to be modified is searched in the symbol table. The label or address or both can be modified.
+PROGRAM
+#include<stdio.h>
+#include<conio.h>
+#include<alloc.h>
+#include<ctype.h>
+void main()
+{
+int j=0,i=0,x=0,n,k,l;
+int *p,*add[20];
+int flag;
+char c,b[20],d[20];
+clrscr();
+printf("\n Enter an expression and it is terminated by $");
+while((c=getchar())!='$')
+{
+b[i]=c;
+i++;
+}
+n=i-1;
+i=0;
+printf("Symbol Table \n");
+printf(" \n Symbol\t Address\t type\t flag");
+while(j<=n)
+{
+c=b[j];
+flag=0;
+for(k=0;k<j;k++)
+{
+ if(k!=j && c==b[k] && isalpha(toascii(c)))
+ {
+   flag=1;
+   add[j]=add[k];
+   d[j]=d[k];
+   printf(" \n\t %c \t\t %p \t identifier \t %d",c,add[j],flag);
+   break;
+ }
+}
+ if(isalpha(toascii(c)) && flag==0)
+ {
+  p=malloc(c);
+  add[x]=p;
+  d[x]=c;
+  printf(" \n\t %c \t\t %p \t identifier \t %d",c,p,flag);
+ }
+for(k=0;k<j;k++)
+{
+ if(k!=j && c==b[k] && (c=='+'||c=='-'||c=='*'||c=='/'||c=='='||c==')'|| c=='('))
+ {
+   flag=1;
+   add[j]=add[k];
+   d[j]=d[k];
+   if (c!='(' && c!=')')
+     printf(" \n\t %c \t\t %p \t Operator \t %d",c,add[j],flag);
+   else
+     printf(" \n\t %c \t\t %p \t Symbol \t %d",c,add[j],flag);
+   break;
+ }
+}
+if((c=='+'||c=='-'||c=='*'||c=='/'||c=='='||c==')'||c=='(')&&flag==0)
+{
+p=malloc(c);
+add[x]=p;
+d[x]=c;
+if (c!='(' && c!=')')
+ printf(" \n\t %c \t\t %p \t Operator \t %d",c,p,flag);
+else
+ printf(" \n\t %c \t\t %p \t Symbol \t %d",c,p,flag);
+}
+x++;
+j++;
+}
+getch();
+}
+OUTPUT:
+Enter the expression and it is terminated by $
+a=b+c
+      symbol      address     type        flag
+      a           07E6        identifier    0
+      =           084C        operator      0 
+      b           088E        identifier    0
+      +           08B6        operator      0
+      c           08EE        identier      0
