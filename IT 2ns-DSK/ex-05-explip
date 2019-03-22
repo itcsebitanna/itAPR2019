@@ -1,0 +1,77 @@
+1. Declare a cursor
+Syntax
+Declare cursor name cursor for select statement;
+Example
+Declare c cursor for select * from bill;
+2. Open the cursor.
+Syntax
+Open cursor name;
+Example Open c
+3. Fetch cursor
+The purpose of using a cursor, in most cases, is to retrieve the rows from your cursor so that
+some type of operation can be performed on the data.
+Syntax
+Fetch cursor name into variable list;
+Example
+Fetch c into a;
+4. Close the cursor
+Syntax
+Close cursor name;
+Example
+Close c;
+IMPLICIT CURSORS
+Oracle uses implicit cursors for its internal processing. These are created by default when DML
+statements like, INSERT, UPDATE, and DELETE statements are executed. They are also created
+when a SELECT statement that returns just one row is executed.
+23 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+EXAMPLE
+/* IMPLICIT CURSOR */
+SQL> create table bill(name varchar2(10), address varchar2(20), city varchar2(20), unit
+number(10));
+Table created.
+SQL> insert into bill values('&name','&addess','&city','&unit');
+Enter value for name: yuva
+Enter value for addess: srivi
+Enter value for city: srivilliputur
+Enter value for unit: 100
+old 1: insert into bill values('&name','&addess','&city','&unit')
+new 1: insert into bill values('yuva','srivi','srivilliputur','100')
+1 row created.
+SQL> select * from bill;
+NAME ADDRESS CITY UNIT
+---------- --------------- ---------------- ---------
+yuva srivi srivilliputur 100
+nithya Lakshmi nagar sivakasi 200
+maya housing board siv
+24 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+3 b bill %ROWTYPE;
+4 begin
+5 open c;
+6 dbms_output.put_line('Name Address city Unit Amount');
+7 loop
+8 fetch c into b;
+9 if(c % notfound) then
+10 exit;
+11 else
+12 if(b.unit<=100) then
+13 dbms_output.put_line(b.name||' '||b.address||' '||b.city||' '||b.unit||' '||b.unit*1);
+14 elsif(b.unit>100 and b.unit<=200) then
+15 dbms_output.put_line(b.name||' '||b.address||' '||b.city||' '||b.unit||' '||b. unit*2);
+16 elsif(b.unit>200 and b.unit<=300) then
+17 dbms_output.put_line(b.name||' '||b.address||' '||b.city||' '||b.unit||' '||b. unit*3);
+18 elsif(b.unit>300 and b.unit<=400) then
+19 dbms_output.put_line(b.name||' '||b.address||' '||b.city||' '||b.unit||' '||b.unit*4);
+20 else
+21 dbms_output.put_line(b.name||' '||b.address||' '||b.city||' '||b.unit||' '||b.unit*5);
+22 end if;
+23 end if;
+24 end loop; 
+25 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+25 close c;
+26 end;
+27 /
+Name Address city Unit Amount
+yuva srivi srivilliputur 100 100
+nithya Lakshmi nagar sivakasi 200 400
+maya housing board sivakasi 300 900
+jeeva RRR nagar sivaganagai 400 1600
