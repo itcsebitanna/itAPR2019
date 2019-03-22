@@ -1,0 +1,32 @@
+- INSERT
+SQL>insert into emp values(&eid,’&name’,’&dob’,’&addr’,’&sex’,’&dept’,’&salary);
+ insert into emp
+values(&eid,’&name’,’&dob’,’&addr’,’&sex’,’&dept’,’&salary);
+ERROR at line 1:
+ORA-20001: you cannot insert a row
+ORA-06512: at “SCOTT.ins1”, line 2
+ORA-04088: error during execution of trigger ‘SCOTT.ins1’
+SYNTAX - DELETE
+ --create or replace trigger del1 before delete on emp
+ --begin
+ --raise_application_error(-20001.’you cannot delete a row’);
+ --end;
+EXAMPLE - DELETE
+SQL>delete from emp where eid=2387;
+ delete from emp where eid=2387;
+ERROR at line 1:
+ORA-20001: you cannot delete a row
+ORA-06512: at “SCOTT.del1”, line 2
+ORA-04088: error during execution of trigger ‘SCOTT.del1’
+SYNTAX - UPDATE
+ --create trigger upd1 before update on emp for each row
+ --begin
+ --raise_application_error(-20001.’you cannot update a row’);
+ --end;
+EXAMPLE - UPDATE
+SQL>update emp set salary=5000 where eid=321;
+ update emp set salary=5000 where eid=3
+ERROR at line 1:
+ORA-20001: you cannot update a row
+ORA-06512: at “SCOTT.upd1”, line 2
+ORA-04088: error during execution of trigger ‘SCO
