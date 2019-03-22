@@ -1,0 +1,90 @@
+                                    5.BNF RULES TO YACC AND GENERATE ABSTRACT SYNTAX TREE
+AIM
+To write a c program to do exercise on syntax analysis using YACC.
+ALGORITHM
+1. Start the program.
+2. Write the code for parser. l in the declaration port.
+3. Write the code for the ‘y’ parser.
+4. Also write the code for conversion of BNF rules to YACC to generate abstract syntax tree.
+5. Write additional code to print the result of computation.
+6. Execute and verify it.
+7. Stop the program.
+abs.l
+%{
+#include"y.tab.h"
+extern int yylval;
+%}
+%%
+[a-z]+ { yylval=yytext;
+printf("we are lex \n");
+return ID;
+}
+[0-9]+ { yylval=atoi(yytext);
+return number;
+}
+[%+-] { return *yytext; }
+[*/^] { return *yytext; }
+[()] { return *yytext; }
+\n return 0;
+%%
+int yywrap()
+{
+return 1;
+}
+abs.y
+%{
+#include<stdio.h>
+#include<math.h>
+int i;
+%}
+%token number ID
+%right UMINUS
+%%
+start:ID { $$=$1;
+printf("valid id:%s",$1);
+}
+|expr { printf("\nresult of expression is %d",$$); }
+|
+;
+expr:expr'+'term { $$=$1+$3; i=i+1;
+printf("\nnext tree node%d%d\t%c\t%d value=%d\n",i,$1,'+',$3,$$); }
+|expr'-'term { $$=$1-$3; i=i+1;
+printf("\n next tree node%d%d\t%c%d value=%d\n",i,$1,'-',$3,$$); }
+|term { $$=$1; }
+term:term'/'factor { $$=$1/$3; i=i+1;
+printf("\nnext tree node%d%d\t%c\t%d value=%d\n",i,$1,'/',$3,$$); }
+|term'*'factor { $$=$1*$3; i=i+1;
+printf("\n next tree node%d%d\t%c\t%d value=%d\n",i,$1,'*',$3,$$); }
+|term'^'factor { $$=$1^$3; i=i+1;
+printf("\n next tree node%d%d\t%c\t%d value=%d\n",i,$1,'^',$3,$$); }
+|term'%'factor { $$=$1%$3; i=i+1;
+printf("\n next tree node %d%d\t%c\t%d value=%d\n",i,$1,'^',$4,$$); }
+|factor { $$=$1; }
+factor:'('expr')'{ $$=$2;
+printf("leaf node%d\n",$2); }
+|'-'expr { $$=-$2;
+printf("\n leaf node%d",-$2); }
+|number { $$=$1; i=i+1;
+printf("\n leaf node%d\n",$1); }
+%%
+extern FILE *yyin;
+void main()
+{
+do{
+yyparse();}
+while(!feof(yyin));
+}
+int yyerror(char *s)
+{
+printf("error");
+}
+Output:
+5*2+3
+Leaf node 5
+Leaf node 2
+Next tree node1 5*2 value=10
+Leaf node 3
+Next tree node2 10+3 value=13
+Result of expression is 13
+
+
