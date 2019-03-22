@@ -1,0 +1,351 @@
+EX.NO.4	                                          SQL - JOIN QUERIES
+DATE:
+AIM:
+	To execute and verify the SQL commands using Join queries.
+JOINS:
+	SQL joins are used to query data from two or more tables, based on a relationship between certain columns in these tables. The JOIN keyword is used in an SQL statement to query data from two or more tables, based on a relationship between certain columns in these tables. Tables in a database are often related to each other with keys. Tables in a database are often related to each other with keys. A primary key is a column (or a combination of columns) with a unique value for each row. Each primary key value must be unique within the table. The purpose is to bind data together, across tables, without repeating all of the data in every table.
+Different SQL JOINs
+	Inner Join: The inner join keyword return rows when there is at least one match in both tables. Inner join is the same as join.
+	SELECT column_name(s)
+	FROM table_name1
+	INNER JOIN table_name2
+	ON table_name1.column_name=table_name2.column_name;
+	Left Join: The left join keyword returns all rows from the left table (table_name1), even if there are no matches in the right table (table_name2). In some databases left join is called left outer join
+	SELECT column_name(s)
+	FROM table_name1
+	LEFT JOIN table_name2
+	ON table_name1.column_name=table_name2.column_name;
+	Right Join: The right join keyword Return all rows from the right table (table_name2), even if there are no matches in the left table (table_name1). In some databases right join is called right outer join
+	SELECT column_name(s)
+	FROM table_name1
+	RIGHT JOIN table_name2
+	ON table_name1.column_name=table_name2.column_name;
+
+	Full Join: The full join keyword return rows when there is a match in one of the tables.
+	SELECT column_name(s)
+	FROM table_name1
+	FULL JOIN table_name2
+	ON table_name1.column_name=table_name2.column_name;
+
+TABLE 1
+
+create table erecord(id number(10),employee varchar2(20),salary number(10),age number(10));
+
+Table created.
+
+SQL> desc erecord;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(10)
+ EMPLOYEE                                           VARCHAR2(20)
+ SALARY                                             NUMBER(10)
+ AGE                                                NUMBER(10)
+TABLE 2
+create table edept(deptno number(20),staff varchar2(20),phno number(20));
+
+Table created.
+
+SQL> desc edept;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPTNO                                             NUMBER(20)
+ STAFF                                              VARCHAR2(20)
+ PHNO                                               NUMBER(20)
+
+SQL> insert into erecord values(&id,'&employee',&salary,&age);
+Enter value for id: 1
+Enter value for employee: sss
+Enter value for salary: 230000
+Enter value for age: 21
+old   1: insert into erecord values(&id,'&employee',&salary,&age)
+new   1: insert into erecord values(1,'sss',230000,21)
+
+1 row created.
+
+SQL> /
+Enter value for id: 2
+Enter value for employee: ddd
+Enter value for salary: 24000
+Enter value for age: 24
+old   1: insert into erecord values(&id,'&employee',&salary,&age)
+new   1: insert into erecord values(2,'ddd',24000,24)
+
+1 row created.
+
+SQL> /
+Enter value for id: 3
+Enter value for employee: fff
+Enter value for salary: 340000
+Enter value for age: 31
+old   1: insert into erecord values(&id,'&employee',&salary,&age)
+new   1: insert into erecord values(3,'fff',340000,31)
+
+1 row created.
+
+SQL> /
+Enter value for id: 4
+Enter value for employee: ddddd
+Enter value for salary: 34578
+Enter value for age: 23
+old   1: insert into erecord values(&id,'&employee',&salary,&age)
+new   1: insert into erecord values(4,'ddddd',34578,23)
+
+1 row created.
+
+SQL> select *from erecord;
+
+        ID EMPLOYEE                 SALARY        AGE
+---------- -------------------- ---------- ----------
+         1 sss                      230000         21
+         2 ddd                       24000         24
+         3 fff                      340000         31
+         4 ddddd                     34578         23
+
+SQL>
+TABLE 2 INSERT
+insert into edept  values(&deptno,'&staff',&phno);
+Enter value for deptno: 1
+Enter value for staff: priya
+Enter value for phno: 9876567388
+old   1: insert into edept  values(&deptno,'&staff',&phno)
+new   1: insert into edept  values(1,'priya',9876567388)
+
+1 row created.
+
+SQL> /
+Enter value for deptno: 2
+Enter value for staff: geeths
+Enter value for phno: 768547638
+old   1: insert into edept  values(&deptno,'&staff',&phno)
+new   1: insert into edept  values(2,'geeths',768547638)
+
+1 row created.
+
+SQL> /
+Enter value for deptno: 3
+Enter value for staff: yamini
+Enter value for phno: 56783676
+old   1: insert into edept  values(&deptno,'&staff',&phno)
+new   1: insert into edept  values(3,'yamini',56783676)
+
+1 row created.
+
+SQL> /
+Enter value for deptno: 5
+Enter value for staff: sarmil
+Enter value for phno: 897436263
+old   1: insert into edept  values(&deptno,'&staff',&phno)
+new   1: insert into edept  values(5,'sarmil',897436263)
+
+1 row created.
+
+SQL> select *from edept;
+
+    DEPTNO STAFF                      PHNO
+---------- -------------------- ----------
+         1 priya                9876567388
+         2 geeths                768547638
+         3 yamini                 56783676
+         5 sarmil                897436263
+
+
+EQUI JOIN
+
+select *from erecord,edept where id=deptno;
+
+        ID EMPLOYEE                 SALARY        AGE     DEPTNO
+---------- -------------------- ---------- ---------- ----------
+STAFF                      PHNO
+-------------------- ----------
+         1 sss                      230000         21          1
+priya                9876567388
+
+         2 ddd                       24000         24          2
+geeths                768547638
+
+         3 fff                      340000         31          3
+yamini                 56783676
+
+UNIQUE JOIN> select *from erecord,edept where id<deptno;
+
+        ID EMPLOYEE                 SALARY        AGE     DEPTNO
+---------- -------------------- ---------- ---------- ----------
+STAFF                      PHNO
+-------------------- ----------
+         1 sss                      230000         21          2
+geeths                768547638
+
+         1 sss                      230000         21          3
+yamini                 56783676
+
+         1 sss                      230000         21          5
+sarmil                897436263
+
+
+        ID EMPLOYEE                 SALARY        AGE     DEPTNO
+---------- -------------------- ---------- ---------- ----------
+STAFF                      PHNO
+-------------------- ----------
+         2 ddd                       24000         24          3
+yamini                 56783676
+
+         2 ddd                       24000         24          5
+sarmil                897436263
+
+         3 fff                      340000         31          5
+sarmil                897436263
+
+
+
+
+        ID EMPLOYEE                 SALARY        AGE     DEPTNO
+---------- -------------------- ---------- ---------- ----------
+STAFF                      PHNO
+-------------------- ----------
+         4 ddddd                     34578         23          5
+sarmil                897436263
+
+
+7 rows selected.
+
+SQL>select x.employee,y.salary,x.age from erecord x,erecord y where x.salary>=(select avg(salary) from erecord where x.age=y.age);
+
+
+EMPLOYEE                 SALARY        AGE
+-------------------- ---------- ----------
+sss                      230000         21
+fff                      340000         31
+
+SQL>
+create table student1 (regno number(2),name varchar2(6),mark1 number(2),mark2 number(2),result varchar2(4));
+
+Table created.
+
+SQL> insert into student1 values(&regno,'&name',&mark1,&mark2,'&result');
+Enter value for regno: 1
+Enter value for name: sss
+Enter value for mark1: 56
+Enter value for mark2: 57
+Enter value for result: pass
+old   1: insert into student1 values(&regno,'&name',&mark1,&mark2,'&result')
+new   1: insert into student1 values(1,'sss',56,57,'pass')
+
+1 row created.
+
+SQL> /
+Enter value for regno: 2
+Enter value for name: yyy
+Enter value for mark1: 89
+Enter value for mark2: 56
+Enter value for result: pass
+old   1: insert into student1 values(&regno,'&name',&mark1,&mark2,'&result')
+new   1: insert into student1 values(2,'yyy',89,56,'pass')
+
+1 row created.
+
+SQL> /
+Enter value for regno: 3
+Enter value for name: xxx
+Enter value for mark1: 78
+Enter value for mark2: 90
+Enter value for result: pass
+old   1: insert into student1 values(&regno,'&name',&mark1,&mark2,'&result')
+new   1: insert into student1 values(3,'xxx',78,90,'pass')
+
+1 row created.
+
+SQL> /
+Enter value for regno: 4
+Enter value for name: uuu
+Enter value for mark1: 45
+Enter value for mark2: 45
+Enter value for result: fail
+old   1: insert into student1 values(&regno,'&name',&mark1,&mark2,'&result')
+new   1: insert into student1 values(4,'uuu',45,45,'fail')
+
+1 row created.
+
+SQL> create table student2(name varchar2(6),grade varchar2(2));
+
+Table created.
+
+SQL> insert into student2 values('&name','&grade');
+Enter value for name: sss
+Enter value for grade: s
+old   1: insert into student2 values('&name','&grade')
+new   1: insert into student2 values('sss','s')
+
+1 row created.
+
+SQL> /
+Enter value for name: yyy
+Enter value for grade: a
+old   1: insert into student2 values('&name','&grade')
+new   1: insert into student2 values('yyy','a')
+
+1 row created.
+
+SQL> /
+Enter value for name: rrr
+Enter value for grade: b
+old   1: insert into student2 values('&name','&grade')
+new   1: insert into student2 values('rrr','b')
+
+1 row created.
+
+SQL> /
+Enter value for name: ppp
+Enter value for grade: a
+old   1: insert into student2 values('&name','&grade')
+new   1: insert into student2 values('ppp','a')
+
+1 row created.
+
+SQL> select * from student1;
+
+     REGNO NAME        MARK1      MARK2 RESU
+---------- ------ ---------- ---------- ----
+         1 sss            56         57 pass
+         2 yyy            89         56 pass
+         3 xxx            78         90 pass
+         4 uuu            45         45 fail
+
+SQL> select * from student2;
+
+NAME   GR
+------ --
+sss    s
+yyy    a
+rrr    b
+ppp    a
+
+SQL> select student1.name,grade from student1 left outer join student2 on student1.name=student2.name;
+
+NAME   GR
+------ --
+sss    s
+yyy    a
+xxx
+uuu
+LEFT OUTER JOIN
+
+SQL> select * from student1 left outer join student2 on student1.name=student2.name;
+
+     REGNO NAME        MARK1      MARK2 RESU NAME   GR
+---------- ------ ---------- ---------- ---- ------ --
+         1 sss            56         57 pass sss    s
+         2 yyy            89         56 pass yyy    a
+         3 xxx            78         90 pass
+         4 uuu            45         45 fail
+RIGHT OUTER JOIN
+SQL> select * from student1 right outer join student2 on student1.name=student2.name;
+
+     REGNO NAME        MARK1      MARK2 RESU NAME   GR
+---------- ------ ---------- ---------- ---- ------ --
+         1 sss            56         57 pass sss    s
+         2 yyy            89         56 pass yyy    a
+           ppp                                      a
+           rrr                                      b
+
+SQL>
+
