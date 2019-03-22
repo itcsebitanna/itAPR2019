@@ -1,0 +1,282 @@
+(a)create table: This is used to create a new relation and the corresponding
+Syntax: create table TABLE_name
+(field_1 data_type(Size),field_2 data_type(Size), .. . );
+Example:
+ SQL>create table Student (sno NUMBER(3),sname char(10),class char(5));
+(b)create TABLE..as select....: This is used to create the structure of a new relation from the
+structure of an existing relation.
+Syntax: create table (relation_name_1, field_1,field_2,.....field_n) AS SELECT
+field_1,field_2,...........field_n from relation_name_2;
+Example: SQL>create table std(rno,sname) as select sno,sname from student;
+2. ALTER:
+(a)ALTER TABLE ...ADD...: This is used to add some extra fields into existing relation.
+Syntax: ALTER TABLE relation_name ADD(new field_1 data_type(size), new field_2
+data_type(size),..);
+3 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+Example : SQL>ALTER TABLE std ADD(Address CHAR(10));
+(b)ALTER table...modify...: This is used to change the width as well as data type of fields of
+existing relations.
+Syntax: alter table relation_name modify (field_1 newdata_type(Size), field_2
+newdata_type(Size),....field_newdata_type(Size));
+Example:SQL>alter table student modify(sname varchar(10),class varchar(5));
+3. DROP TABLE: This is used to delete the structure of a relation. It permanently deletes the
+records in the table.
+Syntax: drop table relation_name;
+Example: SQL>drop table std;
+4. RENAME: It is used to modify the name of the existing database object.
+Syntax: RENAME table old_relation_name TO new_relation_name;
+Example: SQL>rename table std to std1;
+5. TRUNCATE: This command will remove the data permanently. But structure will not be
+removed.
+Syntax: TRUNCATE TABLE <Table name>
+Example TRUNCATE TABLE student;
+DATA MANIPULATION LANGUAGE (DML):
+The Data Manipulation Language (DML) is used to retrieve, insert and modify database
+information. These commands will be used by all database users during the routine operation of
+the database. Let's take a brief look at the basic DML commands:
+1. INSERT 2. UPDATE 3. DELETE
+4 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+1. INSERT INTO: This is used to add records into a relation. These are three type of insert into
+queries which are as
+a) Inserting a single record
+Syntax: INSERT INTO relationname(field_1,field_2,.field_n)VALUES
+ (data_1,data_2,........data_n);
+Example: SQL>INSERT INTO student(sno,sname,class,address)VALUES
+(1,’Ravi’,’M.Tech’,’Palakol’);
+b) Inserting all records from another relation
+Syntax: INSERT INTO relation_name_1 SELECT Field_1,field_2,field_n
+ FROM relation_name_2 WHERE field_x=data;
+Example: SQL>INSERT INTO std SELECT sno,sname FROM student WHERE name = ‘Ramu‘;
+c) Inserting multiple records
+Syntax: INSERT INTO relation_name field_1,field_2,.....field_n) VALUES
+ (&data_1,&data_2,........&data_n);
+Example: SQL>INSERT INTO student(sno,sname,class,address)
+ VALUES(&sno,’&sname’,’&class’,’&address’);
+Enter value for sno: 101
+Enter value for name: Ravi
+Enter value for class: M.Tech
+Enter value for name: Palakol
+2. UPDATE-SET-WHERE: This is used to update the content of a record in a relation.
+Syntax: SQL>UPDATE relation name SET Field_name1=data,field_name2=data,
+ WHERE field_name=data;
+Example: SQL>UPDATE student SET sname = ‘kumar’ WHERE sno=1;
+3. DELETE-FROM:
+This is used to delete all the records of a relation but it will retain the structure of that relation.
+a) delete-from: This is used to delete all the records of relation.
+ Syntax: SQL>DELETE FROM relation_name;
+ Example: SQL>DELETE FROM std;
+b) delete -from-where: This is used to delete a selected record from a relation.
+5 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+ Syntax: SQL>DELETE FROM relation_name WHERE condition;
+ Example: SQL>DELETE FROM student WHERE sno = 2;
+3. DRL (DATA RETRIEVAL LANGUAGE): Retrieves data from one or more tables.
+1. Select from: To display all fields for all records.
+Syntax: SELECT * FROM relation_name;
+Example: SQL> select * from dept;
+DEPTNO DNAME LOC
+ -------- ----------- ----------
+ 10 ACCOUNTING NEW YORK
+ 20 RESEARCH DALLAS
+ 30 SALES CHICAGO
+ 40 OPERATIONSBOSTON
+2. Select from: To display a set of fields for all records of relation.
+Syntax: SELECT a set of fields FROM relation_name;
+Example: SQL> select deptno, dname from dept;
+ DEPTNO DNAME
+------- ----------
+ 10 ACCOUNTING
+ 20 RESEARCH
+ 30 SALES
+3. select - from -where: This query is used to display a selected set of fields for a selected set of
+records of a relation.
+Syntax: SELECT a set of fields FROM relation_name WHERE condition;
+Example: SQL> select * FROM dept WHERE deptno<=20;
+ DEPTNO DNAME LOC
+------ ----------- ------------
+ 10 ACCOUNTING NEW YORK
+ 20 RESEARCH DALLAS
+4. select - from -group by: This query is used to group to all the records in a relation together for each
+and every value of a specific key(s) and then display them for a selected set of fields the relation.
+Syntax: SELECT a set of fields FROM relation_name GROUP BY field_name;
+6 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+Example: SQL> SELECT EMPNO, SUM (SALARY) FROM EMP GROUP BY EMPNO;
+
+EMPNO SUM (SALARY)
+------ ----------
+ 1 3000
+ 2 4000
+ 3 5000
+ 4 6000
+4 rows selected.
+5. select - from -order by:
+This query is used to display a selected set of fields from a relation in an ordered manner base
+on some field.
+Syntax: SELECT a set of fields FROM relation_name
+ORDER BY field_name;
+Example: SQL> SELECT empno,ename,job FROM emp ORDER BY job;
+EMPNO ENAME JOB
+------ --------- --------
+4 RAVI MANAGER
+2 aravind Manager
+1 sagar clerk
+3 Laki clerk
+ 4rows selected.
+6. JOIN using SELECT - FROM - ORDER BY:
+This query is used to display a set of fields from two relations by matching a common field in
+them in an ordered manner based on some fields.
+Syntax: SELECT a set of fields from both relations FROM relation_1, relation_2 WHERE
+relation_1.field_x = relation_2.field_y ORDER BY field_z;
+Example: SQL>SELECT empno,ename,job,dname FROM emp,dept WHERE emp.deptno = 20
+ORDER BY job;
+EMPNO ENAME JOB DNAME
+------ ------ ------- ----------
+7788 SCOTT ANALYST ACCOUNTING
+7902 FORD ANALYST ACCOUNTING
+7 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+------
+7566 JONES MANAGER OPERATIONS
+7566 JONES MANAGER SALES
+ 20 rows selected.
+7. JOIN using SELECT - FROM - GROUP BY:
+This query is used to display a set of fields from two relations by matching a common field in
+them and also group the corresponding records for each and every value of a specified key(s) while
+displaying.
+Syntax: SELECT a set of fields from both relations FROM relation_1,relation_2 WHERE
+relation_1.field-x=relation_2.field-y GROUP BY field-z;
+Example: SQL> SELECT empno,SUM(SALARY) FROM emp,dept WHERE emp.deptno =20
+GROUP BY empno;
+EMPNO SUM (SALARY)
+------- --------
+7369 3200
+7566 11900
+7788 12000
+7876 4400
+8. UNION:
+This query is used to display the combined rows of two different queries, which are having the
+same structure, without duplicate rows.
+Syntax: SELECT field_1,field_2,....... FROM relation_1 WHERE (Condition) UNION
+SELECT field_1,field_2,....... FROM relation_2 WHERE (Condition);
+Example:
+SQL> SELECT * FROM STUDENT;
+SNO SNAME
+----- -------
+ 1 kumar
+ 2 ravi
+ 3 ramu
+8 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+SQL> SELECT * FROM STD;
+ SNO SNAME
+ ----- -------
+ 3 ramu
+ 5 lalitha
+ 9 devi
+ 1 kumar
+SQL> SELECT * FROM student UNION SELECT * FROM std;
+SNO SNAME
+---- ------
+ 1 kumar
+ 2 ravi
+ 3 ramu
+ 5 lalitha
+9 devi
+9. INTERSET:
+This query is used to display the common rows of two different queries, which are having the
+same structure, and to display a selected set of fields out of them.
+Syntax: SELECT field_1,field_2,.. FROM relation_1 WHERE
+(Condition) INTERSECT SELECT field_1,field_2,.. FROM relation_2 WHERE(Condition);
+Example : SQL> SELECT * FROM student INTERSECT SELECT * FROM std;
+SNO SNAME
+---- -------
+1 Kumar
+10. MINUS:
+This query is used to display all the rows in relation_1,which are not having in the relation_2.
+Syntax: SELECT field_1,field_2,......FROM relation_1
+WHERE(Condition) MINUS SELECT field_1,field_2,.....
+FROM relation_2 WHERE(Conditon);
+SQL> SELECT * FROM student MINUS SELECT * FROM std;
+9 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+SNO SNAME
+---- -------
+2 RAVI
+3 RAMU
+3. TRANSATIONAL CONTROL LANGUAGE (T.C.L):
+A transaction is a logical unit of work. All changes made to the database can be referred to as
+a transaction. Transaction changes can be mode permanent to the database only if they are committed
+a transaction begins with an executable SQL statement & ends explicitly with either role back or
+commit statement.
+1. COMMIT:
+This command is used to end a transaction only with the help of the commit command
+transaction changes can be made permanent to the database.
+Syntax: SQL>COMMIT;
+Example: SQL>COMMIT;
+2. SAVE POINT:
+Save points are like marks to divide a very lengthy transaction to smaller once. They are used to identify
+a point in a transaction to which we can latter role back. Thus, save point is used in conjunction with
+role back.
+Syntax: SQL>SAVE POINT ID;
+Example: SQL>SAVE POINT xyz;
+3. ROLE BACK: A role back command is used to undo the current transactions. We can role back
+the entire transaction so that all changes made by SQL statements are undo (or) role back a transaction
+to a save point so that the SQL statements after the save point are role back.
+Syntax: ROLE BACK( current transaction can be role back) ROLE BACK to save point ID;
+Example: SQL>ROLE BACK;
+SQL>ROLE BACK TO SAVE POINT xyz;
+10 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+4. DATA CONTROL LANGUAGE (D.C.L):
+DCL provides uses with privilege commands the owner of database objects (tables), has the
+soul authority ollas them. The owner (data base administrators) can allow other data base uses to access
+the objects as per their requirement
+1. GRANT: The GRANT command allows granting various privileges to other users and allowing
+them to perform operations with in their privileges
+For Example, if a uses is granted as ‘SELECT’ privilege then he/she can only view data but cannot
+perform any other DML operations on the data base object GRANTED privileges can also be
+withdrawn by the DBA at any time
+Syntax: SQL>GRANT PRIVILEGES on object_name To user_name;
+Example: SQL>GRANT SELECT, UPDATE on emp To hemanth;
+2. REVOKE: To with draw the privileges that has been GRANTED to a uses, we use the REVOKE
+command
+Syntax: SQL>REVOKE PRIVILEGES ON object-name FROM user_name;
+Example: SQL>REVOKE SELECT, UPDATE ON emp FROM ravi;
+There are 5 constraints available in ORACLE:
+1. NOT NULL: When a column is defined as NOTNULL, then that column becomes a mandatory
+column. It implies that a value must be entered into the column if the record is to be accepted for
+storage in the table.
+Syntax:
+CREATE TABLE Table_Name(column_name data_type(size) NOT NULL, );
+Example:
+CREATE TABLE student (sno NUMBER(3)NOT NULL, name CHAR(10));
+2. UNIQUE: The purpose of a unique key is to ensure that information in the column(s) is unique i.e.
+a value entered in column(s) defined in the unique constraint must not be repeated across the column(s).
+A table may have many unique keys.
+Syntax:
+CREATE TABLE Table_Name(column_name data_type(size) UNIQUE, ….);
+11 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+Example:
+CREATE TABLE student (sno NUMBER(3) UNIQUE, name CHAR(10));
+3. CHECK: Specifies a condition that each row in the table must satisfy. To satisfy the constraint,
+each row in the table must make the condition either TRUE or unknown (due to a null).
+Syntax:
+CREATE TABLE Table_Name(column_name data_type(size) CHECK(logical
+expression),….);
+Example:
+CREATE TABLE student (sno NUMBER (3), name CHAR(10),class
+CHAR(5),CHECK(class IN(‘CSE’,’CAD’,’VLSI’));
+4. PRIMARY KEY: A field which is used to identify a record uniquely. A column or combination of
+columns can be created as primary key, which can be used as a reference from other tables. A table
+contains primary key is known as Master Table.
+ It must uniquely identify each record in a table.
+ It must contain unique values, It cannot be a null field.
+ It cannot be multi port field.
+ It should contain a minimum no. of fields necessary to be called unique.
+Syntax:
+CREATE TABLE Table_Name(column_name data_type(size) PRIMARY KEY, ….);
+Example:
+CREATE TABLE faculty (fcode NUMBER(3) PRIMARY KEY, fname CHAR(10));
+5. FOREIGN KEY:
+It is a table level constraint. We cannot add this at column level. To reference any primary key
+column from other table this constraint can be used. The table in which the foreign key is defined is
+called a detail table. The table that defines the primary key and is referenced by the foreign key is
+called the master table.
+Syntax:
+CREATE TABLE Table_Name(column_name data_type(size) FOREIGN
+KEY(column_name) REFERENCES table_name);
