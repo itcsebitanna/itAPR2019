@@ -1,0 +1,70 @@
+                             3A.Basic programs for LEX
+Execution procedure
+flex filename.l
+cc lex.yy.c -lfl
+.a/.out 
+1. To identify uppercase letters
+%%
+[A-Z] { printf(“\nuppercase letters”); }
+%%
+Void main()
+{
+yylex();
+}
+Output:
+A
+Uppercase letters
+a 
+(no output)
+2. To identify lowercase letters
+%%
+[a-z] { printf(“l\nowercase letters”); }
+%%
+Void main()
+{
+yylex();
+}
+Output:
+a 
+lowercase letters
+A
+(no output)
+3.To identify digits
+%%
+[0-9]* { printf(“It is a digit”); }
+%%
+Void main()
+{
+yylex();
+}
+Output:
+9
+digit
+4.To identify identifiers
+%%
+[a-z][a-z A-Z 0-9]* { printf(“It’s an identifier”); }
+.+ { printf(“it’s not an identifier”); }
+%%
+Void main()
+{
+yylex();
+}
+Output:
+A1
+It’s an identifier
+1a
+Its not an identifier
+.Identify Vowels and Consonants
+%%
+[a|e|i|o|u] { printf(“It’s a vowel”); }
+.+ { printf(“It’s a consonant”); }
+%%
+Void main()
+{
+yylex();
+}	
+Output:
+a 
+vowel
+w
+consonant
