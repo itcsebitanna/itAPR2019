@@ -1,0 +1,88 @@
+EX.NO.9			PL/SQL - PROCEDURES 
+DATE:
+AIM:
+	To implement and execute procedures in Oracle database using Procedural Language concepts.
+PROCEDURE:
+	                  STEP 1: Initialize the necessary parameters.  
+                  STEP 2: Develop the set of statements with the essential operational parameters.
+                  STEP 3: Specify the Individual operation to be carried out.
+                  STEP 4: Execute the procedure.
+PROCEDURES: 
+	Procedure is a subprogram that contains set of SQL and PL/SQL statements. A stored procedure or in simple a proc is a named PL/SQL block which performs one or more specific task. This is similar to a procedure in other programming languages. A procedure has a header and a body. The header consists of the name of the procedure and the parameters or variables passed to the procedure. The body consists or declaration section, execution section and exception section similar to a general PL/SQL Block. A procedure is similar to an anonymous PL/SQL Block but it is named for repeated usage
+
+Merits: 
+Reusability -         Subprograms once executed can be used in any number of applications 
+Maintainability - Subprogram can simplify maintenance, subprogram will be affected only its definition changes 
+
+Parameters: 
+1. IN -        The IN parameter is used to pass values to a subprogram when it is invoked 
+2. OUT -    The OUT parameter is used to return values to the caller of a subprogram 
+3. IN OUT-The IN OUT parameter is used to pass initial values to the subprogram when invoked and also it returns updated values to the caller. 
+Syntax:
+CREATE [OR REPLACE] PROCEDURE procedure_name 
+[(parameter_name [IN | OUT | IN OUT] type [, ...])]
+            {IS | AS}
+	Declaration section
+BEGIN
+  	procedure_body
+EXCEPTION    
+     Exception section 
+
+END procedure_name;
+Where
+1.	OR REPLACE specifies the procedure is to replace an existing procedure present
+2.	You can use this option when you want to modify a procedure. 
+3.	A procedure may be passed multiple parameters. 
+4.	IN | OUT | IN OUT specifies the mode of the parameter. 
+5.	Type specifies the type of the parameter. 
+6.	Procedure body contains the SQL and PL/SQL statements to perform the procedure's task.
+There are two ways to execute a procedure.
+1) From the SQL prompt.
+ 	EXECUTE [or EXEC] procedure_name; 
+2) Within another procedure – simply use the procedure name.
+ 	 procedure_name;
+
+
+There are two ways to execute a procedure.
+1) From the SQL prompt.
+	EXECUTE [or EXEC] procedure_name; 
+2) Within another procedure – simply use the procedure name.
+	 procedure_name;
+
+PROCEDURE PROGRAM
+create procedure empvalidate(empno in number) as
+check number
+begin
+select count(*) into check from emp_5 where empno=empno;
+if check>0 then
+dbms_output.put_line('Valid customer');
+else
+dbms_output.put_line('Not Valid customer');
+end if;
+end;
+
+
+
+
+
+create procedure first as
+begin
+dbms_output.put_line('My first procedure');
+end;
+
+
+declare
+a number;
+procedure squarenum(x in out number)is
+begin
+x:=x*x;
+end;
+
+begin
+a:=23;
+squarenum(a);
+dbms_output.put_line('square of 23:'||a);
+end;
+
+
+
