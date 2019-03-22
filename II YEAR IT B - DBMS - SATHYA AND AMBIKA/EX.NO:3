@@ -1,0 +1,195 @@
+Ex. No. 3.	CREATION OF VARIOUS CONSTRAINTS IN DATABASES
+
+AIM
+
+To create and implement various constraints on the databases.
+
+DESCRIPTION:
+
+SQL CONSTRAINTS
+
+Constraints are the rules enforced on data columns on table. These are used to limit the type of data that can go into a table. This ensures the accuracy and reliability of the data in the database.
+Constraints could be column level or table level. Column level constraints are applied only to one column, whereas table level constraints are applied to the whole table.
+
+Following are commonly used constraints available in SQL.
+
+•	NOT NULL Constraint: Ensures that a column cannot have NULL value. 
+
+•	UNIQUE Constraint: Ensures that all values in a column are different. 
+
+•	PRIMARY Key: Uniquely identified each rows/records in a database table. 
+
+•	FOREIGN Key: Uniquely identified a rows/records in any another database table. 
+
+•	CHECK Constraint: The CHECK constraint ensures that all values in a column satisfy 
+
+certain conditions.
+
+SQL> create table emp_1(empno number(4) primary key,ename varchar2(30),designation varchar2(10),age number(3),salary number(8,2));
+Table created.
+
+SQL> alter table progress_1 add constraint rrr primary key(regno);
+
+Table altered.
+
+SQL> alter table progress_1 add constraint rrr primary key(regno);
+
+Table altered.
+
+SQL> desc progress_1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGNO                                     NOT NULL NUMBER(3)
+ NAME                                               VARCHAR2(30)
+ MARK                                               NUMBER(4)
+ RANK                                               NUMBER(2)
+
+SQL>  insert into progress_1 values(3,'ragumaan',470,4);
+insert into progress_1 values(3,'ragumaan',470,4)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.RRR) violated
+
+UNIQUE
+
+SQL> alter table progress_1 add constraint yyy unique(rank);
+
+Table altered.
+SQL> desc progress_1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGNO                                     NOT NULL NUMBER(3)
+ NAME                                               VARCHAR2(30)
+ MARK                                               NUMBER(4)
+ RANK                                               NUMBER(2)
+
+SQL> insert into progress_1 values(4,'ram',480,3);
+insert into progress_1 values(4,'ram',480,3)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.YYY) violated
+
+SQL>  insert into progress_1 values('&regno','&name','&mark','&rank');
+Enter value for regno: 4
+Enter value for name: ram
+Enter value for mark: 479
+Enter value for rank: 4
+old   1:  insert into progress_1 values('&regno','&name','&mark','&rank')
+new   1:  insert into progress_1 values('4','ram','479','4')
+
+1 row created.
+
+NOT NULL:
+
+SQL> alter table progress_1 add constraint zzz not null(mark);
+alter table progress_1 add constraint zzz not null(mark)
+                                          *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+CHECK:
+
+SQL> alter table progress_1 add constraint xxx check(mark>100 and mark<500);
+
+Table altered.
+
+SQL> insert into progress_1 values('&regno','&name','&mark','&rank');
+Enter value for regno: 5
+Enter value for name: rajesh
+Enter value for mark: 500
+Enter value for rank: 5
+old   1: insert into progress_1 values('&regno','&name','&mark','&rank')
+new   1: insert into progress_1 values('5','rajesh','500','5')
+insert into progress_1 values('5','rajesh','500','5')
+*
+ERROR at line 1:
+ORA-02290: check constraint (SCOTT.XXX) violated
+
+NOT NULL:
+
+SQL> alter table progress_1 modify mark number NOT NULL;
+
+Table altered.
+
+SQL> select * from progress_1;
+
+     REGNO NAME                                 MARK       RANK
+---------- ------------------------------ ---------- ----------
+         4 ram                                   479          4
+         1 Ragu                                  495          1
+         2 Rathika                               490          2
+         3 ragavan                               480          3
+
+SQL> insert into progress_1 values('&regno','&name','&mark','&rank');
+Enter value for regno: 7
+Enter value for name: ggg
+Enter value for mark: null
+Enter value for rank: 7
+old   1: insert into progress_1 values('&regno','&name','&mark','&rank')
+new   1: insert into progress_1 values('7','ggg','null','7')
+insert into progress_1 values('7','ggg','null','7')
+                                        *
+ERROR at line 1:
+ORA-01722: invalid number
+
+
+SQL>
+SQL> insert into progress_1 values('&regno','&name','&mark','&rank');
+Enter value for regno: 3
+Enter value for name: sdf
+Enter value for mark:
+Enter value for rank: 6
+old   1: insert into progress_1 values('&regno','&name','&mark','&rank')
+new   1: insert into progress_1 values('3','sdf','','6')
+insert into progress_1 values('3','sdf','','6')
+                                        *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("SCOTT"."PROGRESS_1"."MARK")
+
+FOREIGN KEY
+SQL> create table dept_1(noofdept number(3) primary key,name varchar(20));
+
+Table created.
+
+SQL> create table staff(regno number(3) primary key,nameofstaff varchar(20),salary number(10),noofdept number(3) references dept_1);
+
+Table created.
+
+
+SQL>  insert into dept_1 values('&noofdept','&name');
+Enter value for noofdept: 1
+Enter value for name: cse
+old   1:  insert into dept_1 values('&noofdept','&name')
+new   1:  insert into dept_1 values('1','cse')
+
+1 row created.
+SQL> insert into dept_1 values('&noofdept','&name');
+Enter value for noofdept: 2
+Enter value for name: it
+old   1: insert into dept_1 values('&noofdept','&name')
+new   1: insert into dept_1 values('2 ','it')
+
+1 row created.
+
+
+
+SQL> select *from dept_1;
+
+  NOOFDEPT NAME
+---------- --------------------
+         1 cse
+         2 it
+
+SQL> insert into staff values('&regno','&nameofstaff','&salary','&noofdept');
+Enter value for regno: 1
+Enter value for nameofstaff: ram
+Enter value for salary: 10000
+Enter value for noofdept: 3
+old   1: insert into staff values('&regno','&nameofstaff','&salary','&noofdept')
+new   1: insert into staff values('1','ram','10000','3')
+insert into staff values('1','ram','10000','3')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SCOTT.SYS_C0010936) violated - parent key not Found
+
+
