@@ -1,0 +1,444 @@
+CREATION OF TABLE
+SQL>create table stud (sname varchar2(30), sid varchar2(10), sage number(10), sarea
+varchar2(20), sdept varchar2(20));
+Table created.
+INSERTION OF VALUES INTO THE TABLE
+SQL> insert into stud values ('ashwin',101,19,'anna nagar','aeronautical');
+1 row created.
+SQL> insert into stud values ('bhavesh',102,18,'nungambakkam','marine');
+1 row created.
+SQL> insert into stud values ('pruthvik',103,20,'anna nagar','aerospace');
+1 row created.
+SQL> insert into stud values ('charith',104,20,'kilpauk','mechanical');
+1 row created.
+SQL> select * from stud;
+SNAME SID SAGE SAREA SDEPT
+------------------------------ ---------- --------- -------------------- --------------------
+ashwin 101 19 anna nagar aeronautical
+bhavesh 102 18 nungambakkam marine
+pruthvik 103 20 anna nagar aerospace
+charith 104 20 kilpauk mechanical
+RENAMING THE TABLE ‘STUD’
+SQL> rename stud to studs;
+Table renamed.
+ARITHMETIC OPERATION
+SQL> select sname, sid+100 "stid" from studs;
+SNAME stid
+------------------------------ ---------
+ashwin 201
+bhavesh 202
+pruthvik 203
+charith 204
+CONCATENATION OPERATOR
+SQL> select sname || ' is a ' || sdept || ' engineer. ' AS "PROFESSION" from studs;
+PROFESSION
+-------------------------------------------------------------------
+ashwin is a aeronautical engineer.
+bhavesh is a marine engineer.
+pruthvik is a aerospace engineer.
+charith is a mechanical engineer.
+DISPLAY ONLY DISTINCT VALUES
+SQL> select distinct sarea from studs;
+SAREA
+--------------------
+anna nagar
+kilpauk
+nungambakkam
+USING THE WHERE CLAUSE
+SQL> select sname,sage from studs where sage<=19;
+SNAME SAGE
+------------------------------ ---------
+ashwin 19
+bhavesh 18
+BETWEEN OPERATOR
+SQL> select sname,sarea, sid from studs where sid between 102 and 104;
+SNAME SAREA SID
+------------------------------ -------------------- ----------
+bhavesh nungambakkam 102
+pruthvik anna nagar 103
+charith kilpauk 104
+IN PREDICATE
+SQL> select sname,sarea , sid from studs where sid in(102,104);
+SNAME SAREA SID
+------------------------------ -------------------- ----------
+bhavesh nungambakkam 102
+charith kilpauk 104
+PATTERN MATCHING
+SQL> select sname, sarea from studs where sarea like '%g%';
+SNAME SAREA
+------------------------------ --------------------
+ashwin anna nagar
+bhavesh nungambakkam
+pruthvik anna nagar
+LOGICAL AND OPERATOR
+SQL> select sname ,sid from studs where sid>102 and sarea='anna nagar';
+SNAME SID
+------------------------------ ----------
+pruthvik 103
+LOGICAL OR OPERATOR
+SQL> select sname ,sid from studs where sid>102 or sarea='anna nagar';
+SNAME SID
+------------------------------ ----------
+ashwin 101
+pruthvik 103
+charith 104
+NOT IN PREDICATE
+SQL> select sname, sid from studs where sid not in(102,104);
+SNAME SID
+------------------------------ ----------
+ashwin 101
+pruthvik 103
+UPDATING THE TABLE
+SQL> alter table studs add ( spocket varchar2(20) );
+Table altered.
+SQL> update studs set spocket=750 where sid=101;
+1 row updated.
+SQL> update studs set spocket=500 where sid=102;
+1 row updated.
+SQL> update studs set spocket=250 where sid=103;
+1 row updated.
+SQL> update studs set spocket=100 where sid=104;
+1 row updated.
+SQL> select * from studs;
+SNAME SID SAGE SAREA SDEPT
+------------------------------ ---------- --------- -------------------- --------------------
+SPOCKET
+--------------------
+ashwin 101 19 anna nagar aeronautical
+750
+bhavesh 102 18 nungambakkam marine
+500
+pruthvik 103 20 anna nagar aerospace
+250
+charith 104 20 kilpauk mechanical
+100
+AGGREGATE FUNCTIONS
+SQL> select avg( spocket ) result from studs;
+ RESULT
+---------
+ 400
+SQL> select min(spocket) result from studs;
+RESULT
+--------------------
+100
+SQL> select count(spocket) result from studs;
+ RESULT
+---------
+ 4
+SQL> select count(*) result from studs;
+ RESULT
+---------
+ 4
+SQL> select count(spocket) result from studs where sarea='anna nagar';
+ RESULT
+---------
+ 2
+SQL> select max(spocket) result from studs;
+RESULT
+--------------------
+750
+SQL> select sum(spocket) result from studs;
+ RESULT
+---------
+ 1600
+NUMERIC FUNCTIONS
+SQL> select abs(-20) result from dual;
+ RESULT
+---------
+ 20
+SQL> select power (2,10) result from dual;
+ RESULT
+---------
+ 1024
+SQL> select round(15.359,2) result from dual;
+ RESULT
+---------
+ 15.36
+SQL> select sqrt (36) result from dual;
+ RESULT
+---------
+ 6
+STRING FUNCTIONS
+SQL> select lower('ORACLE') result from dual;
+RESULT
+------
+oracle
+SQL> select upper('oracle') result from dual;
+RESULT
+------
+ORACLE
+SQL> select initcap('Oracle') result from dual;
+RESULT
+------
+Oracle
+SQL> select substr('oracle' ,2 ,5) result from dual;
+RESULT
+-----
+racle
+SQL> select lpad('oracle',10,'#') result from dual;
+RESULT
+----------
+####oracle
+SQL> select rpad ('oracle',10,'^') result from dual;
+RESULT
+----------
+oracle^^^^
+CONVERSION FUNCTIONS
+SQL> update studs set sage=to_number(substr(118,2,3));
+4 rows updated.
+SQL> select * from studs;
+SNAME SID SAGE SAREA SDEPT
+------------------------------ ---------- --------- -------------------- --------------------
+SPOCKET
+--------------------
+ashwin 101 18 anna nagar aeronautical
+750
+bhavesh 102 18 nungambakkam marine
+500
+pruthvik 103 18 anna nagar aerospace
+250
+charith 104 18 kilpauk mechanical
+100
+SQL> select to_char( 17145, '099,999') result from dual;
+RESULT
+--------
+017,145
+SQL> select to_char(sysdate,'dd-mon-yyyy') result from dual;
+RESULT
+-----------
+16-jul-2008
+DATE FUNCTIONS
+SQL> select sysdate from dual;
+SYSDATE
+---------
+16-JUL-08
+SQL> select sysdate,add_months(sysdate,4) result from dual;
+SYSDATE RESULT
+--------- ---------
+16-JUL-08 16-NOV-08
+SQL> select sysdate, last_day(sysdate) result from dual;
+SYSDATE RESULT
+--------- ---------
+16-JUL-08 31-JUL-08
+SQL> select sysdate, next_day(sysdate,'sunday') result from dual;
+SYSDATE RESULT
+--------- ---------
+16-JUL-08 20-JUL-08
+SQL> select months_between('09-aug-91','11-mar-90') result from dual;
+ RESULT
+ ---------
+16.935484
+GROUP BY CLAUSE
+SQL> select sarea, sum(spocket) result from studs group by sarea;
+SAREA RESULT
+-------------------- ------------
+anna nagar 1000
+nungambakkam 500
+kilpauk 100
+HAVING CLAUSE
+SQL> select sarea, sum(spocket) result from studs group by sarea having spocket<600;
+SAREA RESULT
+-------------------- ------------
+nungambakkam 500
+kilpauk 100
+DELETION
+SQL> delete from studs where sid=101;
+1 row deleted.
+SQL> select * from studs;
+SNAME SID SAGE SAREA SDEPT
+------------------------------ ---------- --------- -------------------- --------------------
+SPOCKET
+-------------------
+bhavesh 102 18 nungambakkam marine
+500
+pruthvik 103 20 anna nagar aerospace
+250
+charith 104 20 kilpauk mechanical
+100
+CREATING TABLES FOR DOING SET OPERATIONS
+TO CREATE PRODUCT TABLE
+SQL> create table product(prodname varchar2(30), prodno varchar2(10));
+Table created.
+SQL> insert into product values('table',10001);
+1 row created.
+SQL> insert into product values('chair',10010);
+1 row created.
+SQL> insert into product values('desk',10110);
+1 row created.
+SQL> insert into product values('cot',11110);
+1 row created.
+SQL> insert into product values('sofa',10010);
+1 row created.
+SQL>
+SQL> insert into product values('tvstand',11010);
+1 row created.
+SQL> select * from product;
+PRODNAME PRODNO
+------------------------------ ----------
+table 10001
+chair 10010
+desk 10110
+cot 11110
+sofa 10010
+tvstand 11010
+TO CREATE SALE TABLE
+SQL> create table sale(prodname varchar2(30),orderno number(10),prodno varchar2(10));
+Table created.
+SQL> insert into sale values('table',801,10001);
+1 row created.
+SQL> insert into sale values('chair',805,10010);
+1 row created.
+SQL> insert into sale values('desk',809,10110);
+1 row created.
+SQL> insert into sale values('cot',813,11110);
+1 row created.
+SQL> insert into sale values('sofa',817,10010);
+1 row created.
+SQL> select * from sale;
+PRODNAME ORDERNO PRODNO
+------------------------------ --------- ----------
+table 801 10001
+chair 805 10010
+desk 809 10110
+cot 813 11110
+sofa 817 10010
+SET OPERATIONS
+SQL> select prodname from product where prodno=10010 union select prodname from sale
+where prodno=10010;
+PRODNAME
+------------------------------
+chair
+sofa
+SQL> select prodname from product where prodno=11110 intersect select prodname from sale
+where prodno=11110;
+PRODNAME
+------------------------------
+cot
+CREATING TABLES FOR DOING JOIN AND NESTED QUERY OPERATIONS
+TO CREATE SSTUD1 TABLE
+SQL> create table sstud1 ( sname varchar2(20) , place varchar2(20));
+Table created.
+SQL> insert into sstud1 values ( 'prajan','chennai');
+1 row created.
+SQL> insert into sstud1 values ( 'anand','chennai');
+1 row created.
+SQL> insert into sstud1 values ( 'kumar','chennai');
+1 row created.
+SQL> insert into sstud1 values ( 'ravi','chennai');
+1 row created.
+SQL> select * from sstud1;
+SNAME PLACE
+-------------------- --------------------
+prajan chennai
+anand chennai
+kumar chennai
+ravi chennai
+TO CREATE SSTUD2 TABLE
+SQL> create table sstud2 ( sname varchar2(20), dept varchar2(10), marks number(10));
+Table created.
+SQL> insert into sstud2 values ('prajan','cse',700);
+1 row created.
+SQL> insert into sstud2 values ('anand','it',650);
+1 row created.
+SQL> insert into sstud2 values ('vasu','cse',680);
+1 row created.
+SQL> insert into sstud2 values ('ravi','it',600);
+1 row created.
+SQL> select * from sstud2;
+SNAME DEPT MARKS
+-------------------- ---------- ---------
+prajan cse 700
+anand it 650
+vasu cse 680
+ravi it 600
+JOIN OPERATIONS
+SQL> select sstud1.sname, dept from sstud1 inner join sstud2 on ( sstud1.sname= sstud2.sname);
+SNAME DEPT
+-------------------- ----------
+anand it
+prajan cse
+ravi it
+SQL> select sstud1.sname, dept from sstud1 join sstud2 on ( sstud1.sname= sstud2.sname);
+SNAME DEPT
+-------------------- ----------
+anand it
+prajan cse
+ravi it
+SQL> select sstud1.sname, dept from sstud1 left outer join sstud2 on ( sstud1.sname=
+sstud2.sname);
+SNAME DEPT
+-------------------- ----------
+prajan cse
+anand it
+ravi it
+kumar
+SQL> select sstud1.sname, dept from sstud1 right outer join sstud2 on ( sstud1.sname=
+sstud2.sname)
+SNAME DEPT
+-------------------- ----------
+prajan cse
+anand it
+ravi it
+ cse
+SQL> select sstud1.sname, dept from sstud1 full outer join sstud2 on ( sstud1.sname=
+sstud2.sname);
+SNAME DEPT
+-------------------- ----------
+prajan cse
+anand it
+ravi it
+kumar
+ cse
+NESTED QUERIES
+SQL> select sname from sstud1 where sstud1.sname in ( select sstud2.sname from
+ 2 sstud2 );
+SNAME
+--------------------
+anand
+prajan
+ravi
+SQL> select sname from sstud1 where sstud1.sname not in ( select sstud2.sname from sstud2 );
+SNAME
+--------------------
+kumar
+SQL> select sname from sstud2 where marks > some(select marks from sstud2
+ 2 where dept='cse');
+SNAME
+--------------------
+prajan
+SQL> select sname from sstud2 where marks >= some (select marks from sstud2
+ 2 where dept='cse' );
+SNAME
+--------------------
+prajan
+vasu
+SQL> select sname from sstud2 where marks > any ( select marks from sstud2 where dept='cse'
+);
+SNAME
+--------------------
+prajan
+SQL> select sname from sstud2 where marks >= any ( select marks from sstud2 
+ 2 where dept='cse' );
+SNAME
+--------------------
+prajan
+vasu
+SQL> select sname from sstud2 where marks > all ( select marks from sstud2 where dept='cse' );
+no rows selected
+SQL> select sname from sstud2 where marks < all ( select marks from sstud2 where dept='cse' );
+SNAME
+--------------------
+anand
+ravi
+SQL> select sname from sstud1 where exists ( select sstud2.sname from sstud2
+ 2 where sstud1.sname=sstud2.sname );
+SNAME
+--------------------
+prajan
+anand
+ravi
+SQL> select sname from sstud1 where not exists ( select sstud2.sname from
+ 2 sstud2 where sstud1.sname=sstud2.sname );
+SNAME
+--------------------
+kumar
