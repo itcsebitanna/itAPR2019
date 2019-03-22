@@ -1,0 +1,347 @@
+EX.NO.5	                        SQL – NESTED QUERIES 
+DATE:
+AIM:
+	To execute and verify the SQL commands using nested queries
+PROCEDURE:
+	                     STEP 1: Create the table with its essential attributes.
+                     STEP 2: Insert attribute values into the table
+                        STEP 3: Execute different Commands and extract information from the table.
+COMMANDS:
+	Nested Query: The nested SQL query is a form of the SELECT query that is inside another SQL query. The nested SQL query is also called a sub query. The outside SQL statement is called the parent statement and the inside SQL statement is the nested or sub query. The nested query obtains a result set and the SELECT statement (parent statement) uses this results set for additional processing
+	You can use the sub query for the following purposes: 
+		- defining a set of row that need to be inserted into a targeted table.
+		- defining a result set that will be used to create a view or snapshot.
+		- defining one or more values for an update statement.
+		- providing values for where, having and start with clauses for select,    			  update and delete statements. 
+Single row and multiple row sub queries:
+1) Usually, a sub query should return only one record, but sometimes it can also return multiple records when used with operators like IN, NOT IN in the where clause. The query would be like, 
+SELECT first_name, last_name, subject 
+FROM student_details 
+WHERE games NOT IN ('Cricket', 'Football'); 
+
+2) Lets consider the student_details table which we have used earlier. If you know the name of the students who are studying science subject, you can get their id's by using this query below,
+SELECT id, first_name 
+FROM student_details 
+WHERE first_name IN ('Rahul', 'Stephen'); 
+But, if you do not know their names, then to get their id's you need to write the query in this manner,
+SELECT id, first_name 
+FROM student_details 
+WHERE first_name IN (SELECT first_name 
+FROM student_details 
+WHERE subject= 'Science'); 
+In the above sql statement, first the inner query is processed first and then the outer query is processed.
+
+3) Subquery can be used with INSERT statement to add rows of data from one or more tables to another table. Let’s try to group all the students who study Math’s in a table 'maths_group'.
+INSERT INTO maths_group(id, name) 
+SELECT id, first_name || ' ' || last_name 
+FROM student_details WHERE subject= 'Maths' ;
+
+4) A subquery can be used in the SELECT statement as follows. Let’s use the product and order_items table defined in the sql_joins section. 
+	Select p.product_name, p.supplier_name, (select order_id from order_items 	where product_id = 101) as order_id from product p where p.product_id=101;
+Correlated Sub query:
+A query is called correlated sub query when both the inner query and the outer query are interdependent. For every row processed by the inner query, the outer query is processed as well. The inner query depends on the outer query before it can be processed.
+
+SELECT p.product_name FROM product p 
+WHERE p.product_id = (SELECT o.product_id FROM order_items o 
+WHERE o.product_id = p.product_id);
+
+SQL> create table location_3(locationid number(10) primary key,streetname varchar2(20),pincode number(10),city varchar2(20),state varchar2(20),country varchar2(20));
+
+Table created.
+
+SQL> create table depart_3(departid number(10) primary key,departname varchar2(20),managerid number(10),locationid references location_3(locationid));
+
+Table created.
+
+SQL> create table emp_4(empname varchar2(20) primary key,firstname varchar2(20),lastname varchar2(20),email varchar2(20),phoneno number(20),hiredate number(20),job varchar2(20),salary number(10),commission number(10),managerid number(10),departid references depart_3(departid));
+
+Table created.
+
+SQL> insert into location_3 values('&locationid','&streetname','&pincode','&city','&state','&country');
+Enter value for locationid: 001
+Enter value for streetname: rrr
+Enter value for pincode: 555
+Enter value for city: namakkal
+Enter value for state: tamilnadu
+Enter value for country: india
+old   1: insert into location_3 values('&locationid','&streetname','&pincode','&city','&state','&country')
+new   1: insert into location_3 values('001','rrr','555','namakkal','tamilnadu','india')
+
+1 row created.
+
+SQL> insert into location_3 values('&locationid','&streetname','&pincode','&city','&state','&country');
+Enter value for locationid: 002
+Enter value for streetname: sss
+Enter value for pincode: 666
+Enter value for city: trichy
+Enter value for state: tamilnadu
+Enter value for country: india
+old   1: insert into location_3 values('&locationid','&streetname','&pincode','&city','&state','&country')
+new   1: insert into location_3 values('002','sss','666','trichy','tamilnadu','india')
+
+1 row created.
+
+SQL> insert into location_3 values('&locationid','&streetname','&pincode','&city','&state','&country');
+Enter value for locationid: 003
+Enter value for streetname: ttt
+Enter value for pincode: 777
+Enter value for city: selam
+Enter value for state: tamilnadu
+Enter value for country: india
+old   1: insert into location_3 values('&locationid','&streetname','&pincode','&city','&state','&country')
+new   1: insert into location_3 values('003','ttt','777','selam','tamilnadu','india')
+
+1 row created.
+
+SQL> select * from location_3;
+
+LOCATIONID STREETNAME              PINCODE CITY
+---------- -------------------- ---------- --------------------
+STATE                COUNTRY
+-------------------- --------------------
+         1 rrr                         555 namakkal
+tamilnadu            india
+
+         2 sss                         666 trichy
+tamilnadu            india
+
+         3 ttt                         777 selam
+tamilnadu            india
+
+SQL> insert into depart_3 values('&departid','&departname','&managerid','&locationid');
+Enter value for departid: 201
+Enter value for departname: ece
+Enter value for managerid: 001
+Enter value for locationid: 001
+old   1: insert into depart_3 values('&departid','&departname','&managerid','&locationid')
+new   1: insert into depart_3 values('201','ece','001','001')
+
+1 row created.
+
+SQL> insert into depart_3 values('&departid','&departname','&managerid','&locationid');
+Enter value for departid: 202
+Enter value for departname: eee
+Enter value for managerid: 002
+Enter value for locationid: 002
+old   1: insert into depart_3 values('&departid','&departname','&managerid','&locationid')
+new   1: insert into depart_3 values('202','eee','002','002')
+
+1 row created.
+
+SQL> insert into depart_3 values('&departid','&departname','&managerid','&locationid');
+Enter value for departid: 003
+Enter value for departname: it
+Enter value for managerid: 003
+Enter value for locationid: 003
+old   1: insert into depart_3 values('&departid','&departname','&managerid','&locationid')
+new   1: insert into depart_3 values('003','it','003','003')
+
+1 row created.
+
+SQL> select *from depart_3;
+
+  DEPARTID DEPARTNAME            MANAGERID LOCATIONID
+---------- -------------------- ---------- ----------
+       201 ece                           1          1
+       202 eee                           2          2
+         3 it                            3          3
+
+SQL> update depart_3 set departid=203 where managerid=003;
+
+1 row updated.
+
+SQL> select *from depart_3;
+
+  DEPARTID DEPARTNAME            MANAGERID LOCATIONID
+---------- -------------------- ---------- ----------
+       201 ece                           1          1
+       202 eee                           2          2
+       203 it                            3          3
+
+SQL> insert into emp_4 values('&empname','&firstname','&lastname','&email','&phoneno','&hiredate','&job','&salary','&commission','&managerid','&departid');
+Enter value for empname: 101
+Enter value for firstname: ragu
+Enter value for lastname: rr
+Enter value for email: xxx1@gmail.com
+Enter value for phoneno: 567890
+Enter value for hiredate: 2
+Enter value for job: manager
+Enter value for salary: 5000
+Enter value for commission: 2000
+Enter value for managerid: 1
+Enter value for departid: 201
+old   1: insert into emp_4 values('&empname','&firstname','&lastname','&email','&phoneno','&hiredate','&job','&salary','&commission','&managerid','&departid')
+new   1: insert into emp_4 values('101','ragu','rr','xxx1@gmail.com','567890','2','manager','5000','2000','1','201')
+
+1 row created.
+
+SQL> insert into emp_4 values('&empname','&firstname','&lastname','&email','&phoneno','&hiredate','&job','&salary','&commission','&managerid','&departid');
+Enter value for empname: 102
+Enter value for firstname: rathika
+Enter value for lastname: rr
+Enter value for email: yyy2@gmail.com
+Enter value for phoneno: 123456
+Enter value for hiredate: 3
+Enter value for job: manager
+Enter value for salary: 6000
+Enter value for commission: 2000
+Enter value for managerid: 2
+Enter value for departid: 202
+old   1: insert into emp_4 values('&empname','&firstname','&lastname','&email','&phoneno','&hiredate','&job','&salary','&commission','&managerid','&departid')
+new   1: insert into emp_4 values('102','rathika','rr','yyy2@gmail.com','123456','3','manager','6000','2000','2','202')
+
+1 row created.
+
+SQL> insert into emp_4 values('&empname','&firstname','&lastname','&email','&phoneno','&hiredate','&job','&salary','&commission','&managerid','&departid');
+Enter value for empname: 103
+Enter value for firstname: ragavan
+Enter value for lastname: ss
+Enter value for email: zzz3@gmail.com
+Enter value for phoneno: 345678
+Enter value for hiredate: 4
+Enter value for job: manager
+Enter value for salary: 4000
+Enter value for commission: 2000
+Enter value for managerid: 3
+Enter value for departid: 203
+old   1: insert into emp_4 values('&empname','&firstname','&lastname','&email','&phoneno','&hiredate','&job','&salary','&commission','&managerid','&departid')
+new   1: insert into emp_4 values('103','ragavan','ss','zzz3@gmail.com','345678','4','manager','4000','2000','3','203')
+
+1 row created.
+
+SQL> select * from emp_4;
+
+EMPNAME              FIRSTNAME            LASTNAME
+-------------------- -------------------- --------------------
+EMAIL                   PHONENO   HIREDATE JOB                      SALARY
+-------------------- ---------- ---------- -------------------- ----------
+COMMISSION  MANAGERID   DEPARTID
+---------- ---------- ----------
+101                  ragu                 rr
+xxx1@gmail.com           567890          2 manager                    5000
+      2000          1        201
+
+102                  rathika              rr
+yyy2@gmail.com           123456          3 manager                    6000
+      2000          2        202
+
+EMPNAME              FIRSTNAME            LASTNAME
+-------------------- -------------------- --------------------
+EMAIL                   PHONENO   HIREDATE JOB                      SALARY
+-------------------- ---------- ---------- -------------------- ----------
+COMMISSION  MANAGERID   DEPARTID
+---------- ---------- ----------
+
+103                  ragavan              ss
+zzz3@gmail.com           345678          4 manager                    4000
+      2000          3        203
+
+Q1
+
+SQL> select firstname, salary from emp_4 where salary>(select salary from emp_4 where empname=103);
+
+FIRSTNAME                SALARY
+-------------------- ----------
+ragu                       5000
+rathika                    6000
+
+Q2
+
+SQL> select departid,departname from depart_3 where locationid=(select locationid from depart_3 where departid=202);
+
+  DEPARTID DEPARTNAME
+---------- --------------------
+       202 eee
+Q3
+
+SQL> select lastname,hiredate from emp_4 where hiredate>(select hiredate from emp_4 where empname=101);
+
+LASTNAME               HIREDATE
+-------------------- ----------
+rr                            3
+ss                            4
+
+Q4
+
+
+SQL> select firstname,lastname,departid from emp_4 where departid=(select departid from depart_3 where departname='ece');
+
+FIRSTNAME            LASTNAME               DEPARTID
+-------------------- -------------------- ----------
+ragu                 rr                          201
+
+Q5
+
+SQL> select departid,departname from depart_3 where locationid=(select locationid from location_3 where city='namakkal');
+
+  DEPARTID DEPARTNAME
+---------- --------------------
+       201 ece
+
+
+Q6
+
+SQL> select firstname, lastname,salary,departid from emp_4 where departid=(select departid from emp_4 where empname=102);
+
+FIRSTNAME            LASTNAME                 SALARY   DEPARTID
+-------------------- -------------------- ---------- ----------
+rathika              rr                         6000        202
+
+Q7
+
+SQL> select firstname,salary,departid from emp_4 where salary>(select avg(salary) from emp_4);
+
+FIRSTNAME                SALARY   DEPARTID
+-------------------- ---------- ----------
+rathika                    6000        202
+
+
+Q8
+SQL> select firstname,lastname, salary,departid from emp_4 where salary in (select salary from emp_4 where departid=202);
+
+FIRSTNAME            LASTNAME                 SALARY   DEPARTID
+-------------------- -------------------- ---------- ----------
+rathika              rr                         6000        202
+
+Q9
+
+SQL> select firstname, lastname,salary,departid from emp_4 where salary>all(select salary from emp_4 where departid=201);
+
+FIRSTNAME            LASTNAME                 SALARY   DEPARTID
+-------------------- -------------------- ---------- ----------
+rathika              rr                         6000        202
+
+
+Q10
+
+SQL> select firstname, lastname,salary,departid from emp_4 where salary>any(select salary from emp_4 where departid=201);
+
+FIRSTNAME            LASTNAME                 SALARY   DEPARTID
+-------------------- -------------------- ---------- ----------
+rathika              rr                         6000        202
+
+Q11
+
+SQL> select firstname, lastname,salary,departid from emp_4 where salary<all(select salary from emp_4 where departid=201);
+
+FIRSTNAME            LASTNAME                 SALARY   DEPARTID
+-------------------- -------------------- ---------- ----------
+ragavan              ss                         4000        203
+
+Q12
+
+
+SQL> select firstname, lastname,salary,departid from emp_4 where departid in (select departid from depart_3 where locationid=(select locationid from location_3 where city='namakkal'));
+
+FIRSTNAME            LASTNAME                 SALARY   DEPARTID
+-------------------- -------------------- ---------- ----------
+ragu                 rr                         5000        201
+
+Q13
+
+SQL> select firstname,lastname,salary,departid from emp_4 where salary>(select avg(salary) from emp_4)and  departid=(select departid from emp_4 where firstname='rathika');
+
+FIRSTNAME            LASTNAME                 SALARY   DEPARTID
+-------------------- -------------------- ---------- ----------
+rathika              rr                         6000        202
+
