@@ -1,0 +1,115 @@
+EX.NO. 8			PL/SQL FUNCTIONS
+DATE:
+AIM:
+	To implement and execute functions in Oracle database using PL/SQL functions. 
+PROCEDURE:
+	                  STEP 1: Initialize the necessary parameters.  
+                  STEP 2: Develop the set of statements with the essential operational parameters.
+                  STEP 3: Specify the Individual operation to be carried out.
+                  STEP 4: Execute the function.
+FUNCTIUONS:
+	Function is a subprogram that computes and returns a single value Functions and procedures are structured alike, except that functions have a RETURN clause. A function has two parts: the specification and the body. The function specification begins with the keyword FUNCTION and ends with the RETURN clause, which specifies the data type of the result value. Parameter declarations are optional. Functions that take no parameters are written without parentheses. The function body begins with the keyword IS and ends with the keyword END followed by an optional function name.
+Syntax:
+	CREATE [OR REPLACE] FUNCTION functionname
+		[(parametername [IN | OUT | IN OUT] type [, ...])]
+		RETURN type
+		{IS | AS}
+	BEGIN
+		  function_body
+	END function_name;
+Where  
+1.	OR REPLACE specifies the function that is to replace an existing function if presents
+2.	Type specifies the PL/SQL type of the parameter
+3.	The body of a function must return a value of the PL/SQL type specified in the RETURN Clause
+4.	FIND MAXIMUM
+5.	4.	SQL> declare
+6.	5.	2  a number;
+7.	6.	3  b number;
+8.	7.	4  c number;
+9.	8.	5  function findmax(x in number,y in number)
+10.	9.	6  return number
+11.	10.	7  is
+12.	11.	8  z number;
+13.	12.	9  begin
+14.	13.	10  if x>y then
+15.	14.	11  z:=x;
+16.	15.	12  else
+17.	16.	13  z:=y;
+18.	17.	14  end if;
+19.	18.	15  return z;
+20.	19.	16  end;
+21.	20.	17  begin
+22.	21.	18  a:=23;
+23.	22.	19  b:=45;
+24.	23.	20  c:=findmax(a,b);
+25.	24.	21  dbms_output.put_line('maximum of(23,45):'||c);
+26.	25.	22  end;
+27.	26.	23  /
+28.	
+29.	OUTPUT
+30.	maximum of(23,45):45
+31.	
+32.	PL/SQL procedure successfully completed.
+33.	
+34.	FACTORIAL
+35.	2  num number;
+36.	3  factorial number;
+37.	4  function fact(x number)
+38.	5  return number
+39.	6  is
+40.	7  f number;
+41.	8  begin
+42.	9  if x=0 then
+43.	10  f:=1;
+44.	11  else
+45.	12  f:=x*fact(x-1);
+46.	13  end if;
+47.	14  return f;
+48.	15  end;
+49.	16  begin
+50.	17  num:=6;
+51.	18  factorial:=fact(num);
+52.	19  dbms_output.put_line('factorial num 6 is :'||factorial);
+53.	20  end;
+54.	21  /
+55.	
+56.	OUTPUT
+57.	
+58.	factorial num 6 is :720
+59.	
+60.	PL/SQL procedure successfully completed.
+61.	create  function findaddress_6(phone in number) 
+62.	return varchar2 as address varchar2(100);
+63.	begin
+64.	select name||','||doorno','||','||place','||into address from emp_6 where phoneno:=phoneno;
+65.	return address; exception when no_data_found then 
+66.	return address not found;
+67.	end;
+68.	
+69.	
+70.	PL/SQL procedure successfully completed.
+71.	
+72.	DISPLAY DETAILS
+73.	
+74.	SQL> create or replace function disp(phone in number)
+75.	2  return varchar2 as address varchar2(100);
+76.	3  begin
+77.	4  select name||','||doorno||','||place into address from emp_6 where phoneno=phone;
+78.	5  return address;
+79.	6  exception when no_data_found then return 'address not found';
+80.	7  end;
+81.	8  /
+82.	
+83.	Function created.
+84.	
+85.	SQL> declare
+86.	2  address varchar2(100);
+87.	3  begin
+88.	4  address:=disp(546587);
+89.	5  dbms_output.put_line(address);
+90.	6  end;
+91.	7  /
+92.	OUTPUT
+93.	ragu,7,namakkal
+94.	
+95.	PL/SQL procedure successfully completed.
