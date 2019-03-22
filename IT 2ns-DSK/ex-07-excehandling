@@ -1,0 +1,215 @@
+Declare
+L_sal emp.sal%type;
+Begin
+DBMS_OUTPUT.PUT_LINE( ‘WELCOME’ );
+Select sal INTO L_sal from emp where empno =
+&empno; DBMS_OUTPUT.PUT_LINE(L_sal);
+DBMS_OUTPUT.PUT_LINE( ‘THANK YOU’ );
+EXCEPTION
+when NO_DATA_FOUND then
+DBMS_OUTPUT.PUT_LINE( ‘INVALID EMPNO’);
+END;
+/
+TOO_MANY_ROWS:
+This Exception is Raised if a SELECT INTO statement returns more than one row.
+Ex:
+Declare
+L_sal emp.sal%type;
+Begin
+DBMS_OUTPUT.PUT_LINE( ‘WELCOME’ );
+33 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+Select sal INTO L_sal from emp where deptno =
+30; DBMS_OUTPUT.PUT_LINE(L_sal);
+DBMS_OUTPUT.PUT_LINE( ‘THANK YOU’ );
+EXCEPTION
+when TOO_MANY_ROWS then
+DBMS_OUTPUT.PUT_LINE( ‘MORE THEN ONE ROW RETURNED’);
+END;
+/
+ZERO_DIVIDE:
+Raised when your program attempts to divide a number by zero.
+Ex:
+Declare
+A Number;
+Begin
+A :=
+5/0; Exception
+when ZERO_DIVIDE then
+DBMS_OUTPUT.PUT_LINE( ‘DO NOT DIVIDE BY 0’ );
+END;
+/
+Note:
+This Exception is raised when we try to divided by zero.
+VALUE_ERROR:
+This Exception is raised when there is miss match with the value and data type of local
+variable
+or size of local variables.
+Ex 1:
+Declare
+L_sal emp.sal%type;
+Begin
+DBMS_OUTPUT.PUT_LINE( ‘WELCOME’ );
+Select ename INTO L_sal from emp where empno =
+34 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+7521; DBMS_OUTPUT.PUT_LINE(L_sal);
+DBMS_OUTPUT.PUT_LINE( ‘THANK YOU’ );
+EXCEPTION
+when VALUE_ERROR then
+DBMS_OUTPUT.PUT_LINE( ‘please check the local variables’);
+END;
+/
+Ex 2:
+Declare
+A number(3);
+Begin
+A := 1234; Exception
+when VALUE_ERROR then
+DBMS_OUTPUT.PUT_LINE( ‘PLEASE CHECK THE LOCAL VARIABLES’ );
+END;
+/
+DUP_VAL_ON_INDEX: (duplicate value on index)
+This Exception is raised when we try to insert a duplicate value in primary key constraint.
+Ex:
+Begin
+DBMS_OUTPUT.PUT_LINE( ‘welcome’ );
+Insert into student values(104, ‘ARUN’,60);
+DBMS_OUTPUT.PUT_LINE( ‘Thank you’ );
+Exception
+when DUP_VAL_ON_INDEX then
+DBMS_OUTPUT.PUT_LINE(‘ Do not insert duplicates’ );
+END;
+/
+The above program works on an assumption the table student for if having a primary key
+SNO column with value.
+35 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+WHEN OTHERS:
+When others are a universal Exception angular this can catch all the Exceptions.
+Declare
+L_sal number(4);
+A number;
+Begin
+DBMS_OUTPUT.PUT_LINE( ‘Welcome’ );
+Select sal INTO L_SAL from emp where deptno = &deptno;
+DBMS_OUTPUT.PUT_LINE(‘The sal is ….’||L_sal);
+A :=10/0;
+DBMS_OUTPUT.PUT_LINE( ‘Thank you’ );
+Exception
+WHEN OTHERS THEN
+DBMS_OUTPUT.PUT_LINE( ‘please check the code’ );
+END;
+/
+ERROR REPORTING FUNCTIONS:
+They are two Error Reporting functions.
+1. SQLCODE
+2. SQLERRM
+These error reporting functions are used in when others clause to identified the exception
+which is raised.
+1. SQLCODE: It returns ERRORCODE
+2. SQLERRM: It returns Exception number and Exception message.
+Note: for NO_DATA_FOUND Exception SQLCODE will return 100.
+Declare
+L_sal number(4);
+A number;
+Begin
+DBMS_OUTPUT.PUT_LINE( ‘Welcome’ );
+Select sal INTO L_SAL from emp where deptno = &deptno;
+DBMS_OUTPUT.PUT_LINE(‘The sal is
+36 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+….’||L_sal); A :=15/0;
+DBMS_OUTPUT.PUT_LINE( ‘Thank you’ );
+Exception
+WHEN OTHERS THEN
+DBMS_OUTPUT.PUT_LINE( ‘please check the code’ );
+DBMS_OUTPUT.PUT_LINE(SQLCODE);
+DBMS_OUTPUT.PUT_LINE(SQLERRM);
+END;
+/
+NESTED BLOCK:
+Declare
+A number := 10;
+Begin
+DBMS_OUTPUT.PUT_LINE(‘HELLO1’);
+Declare
+B number := 20;
+Begin
+DBMS_OUTPUT.PUT_LINE(‘HELLO2’);
+DBMS_OUTPUT.PUT_LINE(B);
+DBMS_OUTPUT.PUT_LINE(A);
+END;
+DBMS_OUTPUT.PUT_LINE(‘HELLO3’);
+DBMS_OUTPUT.PUT_LINE(B); --ERROR
+END;
+/
+Note:
+outer block variables can be accessed in nested block nested block variables cannot be accessed in
+outer block.
+EXCEPTION PROPAGATION:
+Begin
+DBMS_OUTPUT.PUT_LINE(‘HELLO1’);
+L_SAL EMP.SAL%TYPE;
+37 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+Begin
+DBMS_OUTPUT.PUT_LINE(‘HELLO2’);
+Select sal INTO L_SAL from emp where empno = 1111;
+DBMS_OUTPUT.PUT_LINE(‘HELLO3’);
+END;
+DBMS_OUTPUT.PUT_LINE(‘HELLO4’);
+EXCEPTION
+WHEN NO_DATA_FOUND THEN
+DBMS_OUTPUT.PUT_LINE(‘HELLO5’);
+END;
+/
+USER DEFINED EXCEPTION:
+These Exceptions are defined and controlled by the user. These Exceptions neither have
+predefined name nor have predefined number. Steps to handle user defined Exceptions.
+Step1: Declare the Exception
+declare
+out_of_stock exception;
+begin
+statements;
+end;
+Step2: Raised the Exception
+if qty < 10 then
+raise out_of_stock;
+end if;
+Step3: Catch the Exception
+exception
+when out_of_stock then
+-- handle the exception (that is reraised) in outer block
+...
+end;
+Ex
+Declare
+MY_EX1 EXCEPTION; --Step1
+38 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+L_SAL EMP.SAL%TYPE;
+Begin
+DBMS_OUTPUT.PUT_LINE(‘welcome’);
+Select SAL INTO L_SAL from emp where empno =
+&empno; IF L_SAL > 2000 THEN
+RAISE MY_EX1; --Step2
+ENDIF;
+DBMS_OUTPUT.PUT_LINE(‘The sal is … ‘||L_sal);
+DBMS_OUTPUT.PUT_LINE(‘Thank you’);
+EXCEPTION
+WHEN MY_EX1 THEN --Step3
+DBMS_OUTPUT.PUT_LINE(‘Sal is two high’);
+END;
+Note: When others should be the last handler of the exception section other wise we get a compiler
+ERROR.
+RAISE_APPLICATION_ERROR:
+RAISE_APPLICATION_ERROR is a procedure which is used to throw one error number
+and error message to the calling environment. It internally performance rolls back.
+ERROR number should be range of -20000 to -20999. ERROR message should be displayed
+less then or equal to 512 characters.
+Declare
+L_sal emp.sal%TYPE;
+Begin
+DBMS_OUTPUT.PUT_LINE(‘Welcome’);
+Insert INTO dept values (08,’arun’,70);
+Select sal INTO L_sal from emp where empno =
+7698; IF L_sal > 2000 THEN
+RAISE_APPLICATION_ERROR(-20150, ‘SAL IS TOO HIGH’);
+END IF;
+DBMS_OUTPUT.PUT_LINE(‘THE SAL IS…’||L_SAL);
+END;
