@@ -1,0 +1,174 @@
+CODING:
+FORM 1:
+Dim db As Database
+Dim rs As Recordset
+Dim PF As Integer
+Dim HRA As Integer
+Dim DA As Integer
+Dim GROSSPAY As Integer
+Dim NETPAY As Integer
+Dim TOTDED As Integer
+Dim TAX As Integer
+Private sub cmdexit_Click()
+Unload Me
+End sub
+Private sub cmdfirst_Click()
+rs.MoveFirst
+txteno.Text=rs(0)
+txtename.Text=rs(1)
+txtdes.Text=rs(“DESINATION”)
+txtdept.Text=rs(“DEPARTMENT”)
+txtbasic.Text=rs(“BASICPAY”)
+End sub
+Private sub cmdlast_Click()
+rs.MoveLast
+txteno.Text=rs(0)
+txtename.Text=rs(1)
+txtdes.Text=rs(“DESINATION”)
+txtdept.Text=rs(“DEPARTMENT”)
+txtbasic.Text=rs(“BASICPAY”)
+End sub
+Private sub cmdnew_Click()
+txteno.Text=””
+txtename.Text=””
+51 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+txtdes.Text=””
+txtdept.Text=””
+txtbasic.Text=””
+rs.AddNew
+txteno.SetFocus
+End sub
+Private sub cmdnext_Click()
+rs.MoveNext
+If rs.EOF Then
+MsgBox”Record pointer is in the last record”
+rs.MoveFirst Else
+txteno.Text=rs(0)
+txtename.Text=rs(1)
+txtdes.Text=rs(“DESINATION”)
+txtdept.Text=rs(“DEPARTMENT”)
+txtbasic.Text=rs(“BASICPAY”)
+End If
+End sub
+Private sub cmdpayroll_Click()
+Form2.Show
+End sub
+Private sub cmdprev_Click()
+rs.MovePrevious
+If Not rs.BOf Then
+txteno.Text=rs(0)
+txtename.Text=rs(1)
+txtdes.Text=rs(“DESINATION”)
+txtdept.Text=rs(“DEPARTMENT”)
+txtbasic.Text=rs(“BASICPAY”)
+Else
+MsgBox”Record pointer is in the first record”
+End If
+52 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+End sub
+Private sub cmdsave_Click()
+If (Val(txtbasic.Text)<5000)Then*0.1
+HRA=Val(txtbasic.Text) *0.1
+DA=Val(txtbasic.Text) *0.3
+MA=100
+PF=600
+TAX=Val(txtbasic.Text) *0.1
+End If
+If (Val(txtbasic.Text)>=5000) And Val(txtbasic.Text)<8000) Then
+HRA=Val(txtbasic.Text) *0.15
+DA=Val(txtbasic.Text) *0.4
+MA=200
+PF=700
+TAX=Val(txtbasic.Text) *0.15
+End If
+If(Val(txtbasic.Text)>=8000) Then
+HRA=Val(txtbasic.Text) *0.2
+DA=Val(txtbasic.Text) *0.5
+MA=300
+PF=800
+TAX=Val(txtbasic.Text) *0.2
+End If
+GROSSPAY= Val(txtbasic.Text)+HRA+DA+MA
+NETPAY= GROSSPAY-(PF+TAX)
+rs.AddNew
+rs(0)= Val(txteno.Text)
+rs(1)= Trim(txtename.Text)
+rs(2)= Trim(txtdes.Text)
+rs(3)= Trim(txtdept.Text)
+rs(4)= Val(txtbasic.Text)
+rs(5)= DA
+53 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+rs(6)= HRA
+rs(7)= PF
+rs(8)= MA
+rs(9)= GROSSPAY
+rs(10)= NETPAY
+rs(11)= TAX
+rs.Update
+MsgBox”Record updated successfully”
+txteno.Text=””
+txtename.Text=””
+txtdes.Text=””
+txtdept.Text=””
+txtbasic.Text=””
+End sub
+Private sub Form_Load
+Set db = OpenDatabase(“E_DETAIL”,False,Fasle,”odbc;uidvt4193;pwd=vt4193”)
+Set rs =db.OpenRecordset(“select*from E_DETAIL”,dbOpenDynaset)
+MsgBox”Successfully connected with the Database”,vbInformation,”Sucessful”
+End sub
+FORM2:
+Dim db As Database
+Dim rs As Recordset
+Private sub cmdexit_Click()
+Load Form1
+Unload Me
+End sub
+Private sub cmdnext_Click()
+If(Combo1.ListIndex -1)>=0 Then
+Combo1.ListIndex = Combo1.ListIndex -1
+display
+Else
+MsgBox ”This is the first record”
+End If
+54 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+End sub
+Private sub cmdprev_Click()
+If(Combo1.ListIndex +1)>=0 Then
+Combo1.ListIndex = Combo1.ListIndex +1
+display
+Else
+MsgBox ”This is the last record”
+End If
+End sub
+Private sub Form_Load()
+Set db = OpenDatabase(“E_DETAIL”,False,Fasle,
+”odbc;uidvt4202;pwd=vt4202”)
+Set rs =db.OpenRecordset(“select*from E_DETAIL order by EMPID”)
+rs.MoveFirst
+Combo1.Clear
+Do While Not rs.EOF
+Combo1.AddItem rs(0)
+rs.MoveNext
+Loop
+Combo1.ListIndex=0
+End sub
+Sub display()
+txtename.Text=rs(1)
+txtdes.Text=rs(2)
+txtdept.Text=rs(3)
+txtbasic.Text=rs(4)
+txtda.Text=rs(5)
+txthra.Text=rs(6)
+txtma.Text=rs(7)
+txtpf.Text=rs(8)
+txttax.Text=rs(9)
+txtgross.Text=rs(10)
+55 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+txtnetpay.Text=rs(11)
+End sub
+Private sub combo1_Click()
+rs.MoveFirst
+rs.FindFirst(“EMPID=”& val(Combo1.Text))
+display
+End sub
