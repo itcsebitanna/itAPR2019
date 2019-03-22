@@ -1,0 +1,85 @@
+SQL>CREATE VIEW employee AS SELECT empno,ename,job FROM EMP WHERE job =
+‘clerk’;
+View created.
+SQL> SELECT * FROM EMPLOYEE;
+EMPNO ENAME JOB
+---- ------ -------
+7369 SMITH CLERK
+7876 ADAMS CLERK
+7900 JAMES CLERK
+7934 MILLER CLERK
+18 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+The WITH CHECK OPTION:
+The WITH CHECK OPTION is a CREATE VIEW statement option. The purpose of the
+WITH CHECK OPTION is to ensure that all UPDATE and INSERTs satisfy the condition(s) in the
+view definition. If they do not satisfy the condition(s), the UPDATE or INSERT returns an error.
+The following is an example of creating same view CUSTOMERS_VIEW with the WITH
+CHECK OPTION:
+Example – CHECK OPTION
+CREATE VIEW CUSTOMERS_VIEW AS SELECT name, age FROM CUSTOMERS
+WHERE age IS NOT NULL WITH CHECK OPTION;
+The WITH CHECK OPTION in this case should deny the entry of any NULL values in the
+view's AGE column, because the view is defined by data that does not have a NULL value in the AGE
+column.
+UPDATING A VIEW:
+A view can be updated under certain conditions:
+ The SELECT clause may not contain the keyword DISTINCT.
+ The SELECT clause may not contain summary functions.
+ The SELECT clause may not contain set functions.
+ The SELECT clause may not contain set operators.
+ The SELECT clause may not contain an ORDER BY clause.
+ The FROM clause may not contain multiple tables.
+ The WHERE clause may not contain subqueries.
+ The query may not contain GROUP BY or HAVING.
+ Calculated columns may not be updated.
+ All NOT NULL columns from the base table must be included in the
+view in order for the INSERT query to function.
+ So if a view satisfies all the above mentioned rules then you can
+update a view. Following is an example to update the age of Ramesh:
+Syntax
+19 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+UPDATE VIEW_NAME SET condition WHERE column_name=’values’;
+Example
+SQL > UPDATE CUSTOMERS_VIEW SET AGE = 35 WHERE name='Ramesh';
+INSERTING ROWS INTO A VIEW:
+Rows of data can be inserted into a view. The same rules that apply to the UPDATE command
+also apply to the INSERT command. Here, we cannot insert rows in CUSTOMERS_VIEW because
+we have not included all the NOT NULL columns in this view, otherwise you can insert rows in a view
+in similar way as you insert them in a table.
+DELETING ROWS INTO A VIEW:
+Rows of data can be deleted from a view. The same rules that apply to the UPDATE and
+INSERT commands apply to the DELETE command.
+Following is an example to delete a record having AGE= 22.
+Syntax
+DELETE FROM VIEW_NAME WHERE CONDITION;
+Example
+SQL > DELETE FROM CUSTOMERS_VIEW WHERE age = 22;
+DROP VIEW: This query is used to delete a view, which has been already created.
+Syntax: DROP VIEW View_name;
+Example : SQL> DROP VIEW EMPLOYEE;
+View dropped
+2. SEQUENCES
+CREATE
+Syntax
+Create Sequence sequence_name start with 1 increment by 1 maxvalue N cycle;
+Example
+Create Sequence seq_1 start with 1 increment by 1 maxvalue 999 cycle;
+INSERT
+Syntax
+INSERT INTO table _name VALUES (seq.nextval,’field_1_value’,’field_2_value’);
+Example
+20 | DBMS LAB MANUAL – DR. D. SENTHIL KUMAR (AP/CSE) AU-BITCAMPUS
+INSERT INTO emp1 VALUES (seq.nextval,’Reshma’,’20’);
+3. SYNONYMS
+It is used to create an alternative or duplicate name for original table and the manipulation
+mode under synonyms is reflected in original table.
+CREATE
+Syntax
+CREATE SYNONYM SYNONYM_NAME from Table_Name;
+Example
+CREATE SYNONYM emp from employee;
+DROP
+Syntax
+DROP SYNONYM SYNONYM_NAME;
+Example
+DROP SYNONYM emp
