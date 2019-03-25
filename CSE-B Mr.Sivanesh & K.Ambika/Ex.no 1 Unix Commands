@@ -1,0 +1,30 @@
+1. Task : To display system date and time.
+Syntax: Date
+Explanation: This command displays the current date and time on the screen.
+2. Task: To display current month.
+Syntax: Date +%m
+Explanation: This command displays the current month on the screen.
+3. Task : To display the name of the current month.
+Syntax: Date +%h
+Explanation: This command displays name of the current month on the screen.
+4. Task: To display current system date.
+Syntax: Date +%d
+Explanation: This command displays the current system date on the screen.
+5. Task: To display current year.
+Syntax: Date +%y
+Explanation: This command displays the current year on the screen.
+6. Task: To display current system time.
+Syntax: Date +%H
+Explanation: This command displays the current system time on the screen.
+7. Task: To display current system time in minutes.
+Syntax: Date +%m
+Explanation: This command displays the current system time in minutes on the screen.
+8. Task: To display current system time in seconds.
+Syntax: Date +%s
+Explanation: This command displays the current system time in seconds on the screen.
+9.Task: To display the calendar of current month.
+Syntax: cal
+Explanation: This command displays the current month calender on the screen.
+10. Task: To display user defined message.
+Syntax: echo ‘message’
+Explanation: This command displays the message.
