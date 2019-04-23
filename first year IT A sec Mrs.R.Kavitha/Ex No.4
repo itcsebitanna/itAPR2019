@@ -1,0 +1,66 @@
+             4.Database applications using PHP and MySQL
+ Login .html
+<html>
+<head>
+<title>Login</title>
+</head>
+<body>
+<form method="POST" action="login.php">
+<center>
+<h1>LOGIN</h1>
+User name :<input type=text length=10 name=uname> <br>
+Password :<input type=password length=10 name=pwd> <br>
+<input type=submit name=submit value=submit>
+<input type=reset name=reset value=reset>
+</center>
+</form>
+</body>
+</html>
+Login.php
+<?php
+$conn = mysqli_connect('localhost', 'root','') or die("cannot connect"); //connection establishment host-local host user name-tamil
+mysqli_select_db($conn,'tamil') or die("cannot select DB"); //selecting the database
+if (isset($_POST['uname']) and isset($_POST['pwd'])) //receiving username, password form html file
+{
+$uname = $_POST['uname']; //assigning the received username in variable uname
+$pwd = $_POST['pwd']; //assigning the received password in variable pwd
+//selecting username, password from table log
+$result = mysqli_query($conn,"SELECT * FROM `log` WHERE uname='$uname' and pwd='$pwd'") or die(mysqli_error()); //searching whether username, password exists in the database
+$count = mysqli_num_rows($result); // if query succeeds then count=1
+if ($count == 1) //if count=1 then username,password exists in db
+{
+echo "login successful";
+}
+else
+{
+echo "Invalid Username or Password.";
+}
+}
+?>
+<html>
+<head>
+<title>Login</title>
+</head>
+<body>
+<form method="POST" action="logininsert.php">
+<center>
+<h1>LOGIN</h1>
+Reg no :<input type=text length=10 name=regno>
+<input type=submit name=submit value=submit>
+<input type=reset name=reset value=reset>
+</center>
+</form>
+</body>
+</html>
+<?php
+//$regno=$_POST['regno'];
+$regno = isset($_POST['regno']) ? $_POST['regno'] : '';
+$conn = mysqli_connect('localhost', 'root','') or die("cannot connect");
+mysqli_select_db($conn,'tamilinsert') or die("cannot select DB");
+$res = mysqli_query($conn,"insert into log values('$regno')") or die(mysqli_error());
+if($res>0)
+{
+echo "Record created";
+echo "<br/><b>";NAME : echo $regno;echo"</b>";
+}
+?>
