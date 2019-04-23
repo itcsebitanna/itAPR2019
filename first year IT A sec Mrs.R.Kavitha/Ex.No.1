@@ -1,0 +1,448 @@
+  1.Creation of interactive web sites - Design using HTML and authoring tools
+                     HTML REFERENCE
+  ADDING HEADINGS:
+  <h1> </h1> -- the biggest
+<h2> </h2>
+<h3> </h3>
+<h4> </h4>
+<h5> </h5>
+<h6> </h6> -- the smallest
+
+ <h1> example of heading </h1>
+<h2> example of heading </h2>
+<h3> example of heading </h3>
+<h4> example of heading </h4>  
+                       
+                       CUSTOMIZING YOUR WEB PAGE
+ADD BACKGROUND IMAGE:
+<body background="image source">
+<body style="backgound: url(E:\image\eye candy wallpapers 2 by deadpxl.jpg) fixed;background-position:centre;border:10;">
+
+ADDING IMAGE to YOUR WEB PAGE:
+<img> tag
+
+ADDING VIDEO to YOUR WEB PAGE:
+<embed src="E:\image\video1.mp4" height = "350" width="500" autostart="false"></embed>
+
+ADDING AUDIO to YOUR WEBPAGE:
+<embed src="E:\image\song.mp3" height="100" width="100" autostart="false"></embed>
+<bgsound src="E:\image\ck.mp3" loop="infinite">
+<body><bgsound src="files/ck.MP3" loop="infinite">XXXXXXXXXXXXXXXXXXXXXXXXXXXXX</body>
+
+                  ADD LINKS, TABLES, LISTS and COMMENTS to YOUR WEB PAGE
+ADD LINKS:
+<a href="webpages/something.html" rel="nofollow" target="_blank" >Something</a>
+
+GIVE NAME to ANY SECTION of YOUR WEB PAGE:
+<a name="section name">My section</a>
+<a href="#section name" rel="nofollow" target="_blank" >Link to My section of this web page</a>
+
+ADDING CLICKABLE IMAGE:
+<a href="http://google.com" rel="nofollow" target="_blank" ><img src="path of the image"></a>
+
+ADDING TABLES to YOUR WEB PAGE:
+<table><tr><td>xxxxxxxxxxxx</td><td>xxxxxxxxxxxxx</td></tr>
+<tr><td>xxxxxxxxxxxxxx</td><td>xxxxxxxxxxxxxxxxxxx</td></tr>
+</table>
+                     
+                     Cellpadding and Cellspacing
+Cellpadding:
+<table cellpadding="4">
+
+Cellspacing:
+<table cellspacing="4">
+
+                  ADDING BACKGROUND COLOR and IMAGE to TABLE
+BACKGROUND COLOR:
+<center>
+<table bgcolor="yellow" cellpadding="20" cellspacing="25" style="border:10 solid green">
+<tr><td bgcolor="light blue" style="border:4 solid red">xxxxxxxxxxxx</td>
+<td bgcolor="purple" style="border:5 dotted purple">xxxxxxxxxxxxx</td></tr>
+<tr><td style="border:5 solid blue">xxxxxxxxxxxxxx</td>
+<td bgcolor="pink">xxxxxxxxxxxxxxxxxxx</td></tr>
+</table>
+
+                 ADDING LISTS to YOUR WEB PAGE
+UNORDERED LISTS:
+<ul>
+<li>List number 1</li>
+<li>List number 2</li>
+<li>List number 3</li>
+</ul>
+
+<ul type="square">
+<li>List number 1</li>
+<li>List number 2</li>
+<li>List number 3</li>
+</ul>
+
+ORDERED LIST:
+<ol>
+<li value="5">List number 1</li>
+<li value="10">List number 2</li>
+11
+<li value="20">List number 3</li>
+</ol>
+
+DEFINITION LIST:
+<dl>
+<dt>Item number 1</dt>
+<dd>Definition or Description for 1st Item</dd>
+<dt>Item number 2</dt>
+<dd>Definition or Description for 2nd Item</dd>
+<dt>Item number 3</dt>
+<dd>Definition or Description for 3rd Item</dd>
+</dl>
+
+NESTED LIST:
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>A Nested List</h2>
+<p>List can be nested (lists inside lists):</p>
+
+<ul>
+  <li>Coffee</li>
+  <li>Tea
+    <ul>
+      <li>Black tea</li>
+      <li>Green tea</li>
+    </ul>
+  </li>
+  <li>Milk</li>
+</ul>
+
+</body>
+</html>
+
+                   ADDING COMMENTS to YOU HTML CODE
+<!--Text within these tags are not displayed by the Web Browser-->  
+
+                     Step ADD MORE EFFECTS to TEXT and YOUR WEB PAGE
+ ADD HORIZONTAL LINE:
+ <hr> tag
+ 
+ ADD MARQUEE EFFECT:
+<marquee scrollamount="2" direction="left">You are learning Web designing</marquee>
+<marquee behavior="alternate" width="600" height="100"><font color="red" size="5"><b>You are learning Web designing<b></font></marquee>
+                      ADD SUBSCRIPT, SUPERSCRIPT and STRIKE
+
+SUBSCRIPT and SUPERSCRIPT:
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>This text contains <sub>subscript</sub> text.</p>
+<p>This text contains <sup>superscript</sup> text.</p>
+</body>
+</html>
+
+STRIKE:
+<!DOCTYPE html>
+<html>
+<body>
+<p>Version 2.0 is <strike>not yet available!</strike> now available!</p>
+<p>The strike element is not supported in HTML5. Use CSS instead.</p>
+</body>
+</html>
+
+                CASCADED STYLE SHEET(CSS)
+HTML PROGRAM FOR INTERNAL STYLE SHEET:
+<html>
+<head>
+<title>Embedded style sheet</title>
+<style type="text/css">
+body {font-weight:bold}
+#p1{font-style:italics}
+li{font-style:normal}
+span{font-family:"Verdanan"}
+#p2{font-size:larger}
+h2,h3{background-color:pink}
+</style>
+</head>
+<body bgcolor="aqua"><h1><center>WIDELY USED PROTOCOLS</center></h1>
+<br/><br/><br/>
+2>TCP/IP</h2>
+<p id="p1">TCP/IP (Transmission Control Protocol/Internet Protocol) is the basic communication language
+or protocol of the Internet. It can also be used as a communications protocol in a private network (either an
+intranet or an extranet). When you are set up with direct access to the Internet, your computer is provided
+with a copy of the TCP/IP program just as every other computer that you may send messages to or get
+information from also has a copy of TCP/IP.
+</p>
+<h3>UDP </h3>
+<p =id"p2">UDP (User Datagram Protocol) was introduced in 1980 and is one of the oldest network protocols in existence. It's a simple OSI transport layer protocol for client/server network applications, is based on Internet Protocol (IP), and is the main alternative to TCP.
+<span>It does not provide two way connection or guarenteed delivery of TCP.</span> Its advantages over TCP is speed for simple tasks. <ul>
+<li>
+DNS is Domain Name Service<p> Its a mechanism of mapping the domain name to corresponding Ip address</p>
+</li>
+</ul>
+</p>
+</body>
+</html>
+
+PROGRAM FOR EXTERNAL STYLE SHEET:
+
+Sample.css:
+
+h1,h2,h3,h4,h5,h6{background-color:purple}
+*{font-weight:bold}
+#p1,#p3{background-color:aqua}
+#p4,.takenote{font-style:italic}
+span.special{font-size:x-large}
+a:link{color:black}
+a.visited{color:yellow}
+a.hover{color:green}
+a.active{color:red}
+ul span{font-variant:small-caps}
+ul ol li{letter-spacing:1em}
+
+selector.html:
+
+<!DOCTYPE html PUBLIC"-//W\w3c//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/1999/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>selectors.html</title>
+<link rel="stylesheet"type="text/css" href="Z:\sample.css"/>
+</head>
+<body>
+<h1>selectors list</h1>
+<p id="p1" class="takenote">
+paragraph with id="p1" nad class=”takenote".</p>
+<p id="p2"class=”special">
+second paragraph<span class="takenote special cool"> this span belongs to classes takenote,special and
+coll</span>
+<ul>
+<li>span's within list are in <span> small-cap </span> style </li> <ol>
+<li> this item spaces letters</li>
+</ol>
+</ul>
+</p>
+<p id="p3">
+third para(id="p3")contains a
+<a href="http://www.example.net">hyperlink</a>
+<ol>
+<li> this item contains a span but does not display it in
+<span> small caps </span> nor does it spaces letters</li>
+</ol>
+</p>
+</body>
+</html>
+
+HTML PROGRAM FOR INLINE STYLE SHEET:
+<!DOCTYPE html>
+<html>
+<body>
+<h1 style="color:blye;margin-left:30px;">this is a heading.</h1>
+<p>this is a paragraph</p>
+</body>
+</html>
+                      JAVA SCRIPT
+Syntax:
+<html>
+<body>
+<script language="javascript" type="text/javascript">
+<!--
+document.write("Hello World!")
+//-->
+</script>
+</body>
+</html>
+
+PROGRAM:
+1) HOME PAGE: home.html:
+<frameset rows="40%,*">
+<frame src="top.html" noresize scrolling="NO" name="topframe"> <frameset cols="15%,*">
+<frame src="left.html" noresize scrolling="NO" name="leftframe"> <frame src="right.html" noresize name="rightframe" scrolling="auto">
+</frameset>
+</frameset>
+top.html:
+<html><head>
+<title>Top Frame</title>
+</head>
+<body>
+<img src="images\logo.jpeg" width="85" height="75" align="left"> <center>
+<marquee bgcolor="yellow" width="650" behavior="alternate">
+<font face="Brush Script MT" size="6" color="Blue"><b><i>Online Book Store</i></b> </font></marquee>
+<br><font face="Brush Script MT" size="4" color="red"><b>Created & Maintained By G. E.
+C</b></font>
+</center><br>
+<table width="100%" height="50%" cellspacing=10> <tr align="center">
+<td> <a href="Home.html" target="_parent"> <img src="images\home.png" height="38"> </a></td>
+<td> <a href="login.html" target="rightframe"> <img src="images\login.gif" height="38"> </a></td>
+<td> <a href="registration.html" target="rightframe"> <img src="images\register.jpg" height="38"> </a></td>
+<td> <a href="catalogue.jsp" target="rightframe"> <img src="images\catalogue.jpg" height="38"> </a></td>
+<td> <a href="cart.html" target="rightframe"> <img src="images\cart.jpg" height="40"> </a></td></tr></table>
+</body>
+</html>
+left.html:
+<html>
+<body align="center"><br>
+<a href="" target="rightframe"> <img src="E:\WebTechnologiesLab\images\cse.jpg" height="35"> </a><br><br>
+<a href="" target="rightframe"> <img src="E:\WebTechnologiesLab\images\ece.jpg" height="35"> </a><br><br>
+<a href="" target="rightframe"> <img src="E:\WebTechnologiesLab\images\eee.jpg" height="25"> </a><br><br>
+<a href="" target="rightframe"> <img src="E:\WebTechnologiesLab\images\civil.jpg"
+height="35"> </a><br>
+</body>
+</html>
+
+right.html:
+17
+<html>
+<body>
+<img src="E:\WebTechnologiesLab\images\Books1.jpg" height="170"><br> <center>
+<font face="Brush Script MT" size="5" color="blue"><b>Welcome to the Online Book Store!!!</b></font><br><br>
+<font face="Brush Script MT" size="5" color="red"><b>"A Huge Collection Of Engineering E-Books"</b></font>
+</center>
+</body>
+</html>
+
+2) LOGIN PAGE:
+
+login.html:
+
+<html>
+<body>
+<basefont face="Cambria" size="4">
+<br>
+<img src="E:\WebTechnologiesLab\images\loginpage.jpg" align="right"> <center>
+<font face="Brush Script MT" size="5" color="purple"><b>Enter Login Details:</b></font>
+</center>
+<form name="f1" method="post">
+<table align="center" width="100" height="150" cellspacing=”15”> <tr><td><b>Login ID:</b></td>
+<td><input type="text" name="t1"></td></tr> <tr><td><b>Password:</b></td>
+<td><input type="password" name="t2"></td></tr> <tr align="center">
+<td><input type="submit" name="b1" value="Submit"></td> <td><input type="reset" name="b2" value="Reset"></td></tr> </table>
+</form>
+</basefont>
+</body>
+</html>
+3) CATALOGUE PAGE:
+Catalogue.html:
+<html>
+<body>
+<br><br>
+<basefont face="cambria" size="3">
+<table align="center" width="100%" height="100%" cellspacing="0" cellpadding="10" border="1">
+<tr align="center">
+<td><img src="E:\WebTechnologiesLab\images\cseimage1.jpg" height="150"></td>
+<td><b>Book: WebTechnologies<br>Author: R.K Somani<br> Publication: R.T.U
+Edition</b></td>
+<td><b>$43.5</b></td>
+<td><input type="Submit" value="Add To Cart" name="b1"></td> </tr>
+<tr align="center">
+<td><img src="E:\WebTechnologiesLab\images\cseimage2.jpg" height="150"></td> <td><b>Book: XML Bible<br>Author: E.R Harold<br> Publication: Wiely</b></td> <td><b>$60</b></td>
+18
+<td><input type="Submit" value="Add To Cart" name="b2"></td> </tr>
+<tr align="center">
+<td><img src="E:\WebTechnologiesLab\images\cseimage3.jpg" height="150"></td> <td><b>Book: HTML 4 Bible<br>Author: Bill Karow<br> Publication: Bill Publications</b></td>
+<td><b>$35.5</b></td>
+<td><input type="Submit" value="Add To Cart" name="b3"></td></tr>
+<tr align="center">
+<td><img src="E:\WebTechnologiesLab\images\cseimage4.jpg" height="150"></td> <td><b>Book: Java 2 Core Language<br>Author: Al Williams<br> Publication: TMH Publications</b></td>
+<td><b>$50</b></td>
+<td><input type="Submit" value="Add To Cart" name="b4"></td> </tr>
+</table>
+</basefont>
+</body>
+</html>
+4) CART PAGE: cart.html:
+<html>
+<head>
+<basefont color="blue" face="cambria" size="5"/> </head>
+<body>
+<form name="f2">
+<table bgcolor="yellow" align="center" border="2" bordercolor="purple" cellpadding="0" cellspacing="0" width="100%" height="100%">
+<tr>
+<th>Book Name</th>
+<th>Price</th>
+<th>Quantity</th>
+<th>Amount</th>
+</tr>
+<tr align="center">
+<td>Java 2</td>
+<td>$35.5</td>
+<td>2</td>
+<td>$70</td>
+</tr>
+<tr align="center">
+<td>XML Bible</td>
+<td>$40.5</td>
+<td>1</td>
+<td>$40.5</td>
+</tr>
+<tr align="right">
+<td colspan="3">Total Amount--</td>
+<td>$110.5</td>
+</tr>
+</table>
+</form>
+</body>
+</html>
+5) REGISTRATION PAGE
+registration.html:
+<html>
+<body>
+<basefont face="cambria">
+<img src="E:\WebTechnologiesLab\images\registrationpage.gif" height="150" align="right">
+<form name="f1" method="post">
+<table align="center" cellspacing=15>
+<caption align="center"><font color="blue"><h3><u>Registration Form</u></h3></font></caption>
+<tr>
+<td><b><font color="red">*</font>Name:</b></td> <td><input type="text" name="t1"></td>
+</tr>
+<tr>
+<td><b><font color="red">*</font>Password:</b></td> <td><input type="password" name="t2"></td> </tr>
+<tr>
+<td><b><font color="red">*</font>Email-Id:</b></td> <td><input type="text" name="t3"></td>
+</tr>
+<tr>
+<td><b><font color="red">*</font>Phone Number:</b></td> <td><input type="text" name="t4"></td> </tr>
+<tr>
+<td><b><font color="red">*</font>Sex:</b></td>
+<td><input type="radio" name="r1">Male<input type="radio" name="r1">Female</td> </tr>
+<tr>
+<td><b><font color="red">*</font>Date Of Birth:</b></td>
+<td><select name="s1">
+<option>DATE</option><option>1</option><option>2</option><option>3</option><op
+tion>4</option><option>5</option><option>6</option><option>7</option><option>8<
+/option><option>9</option><option>10</option><option>11</option><option>12</opti
+on><option>13</option><option>14</option><option>15</option><option>16</option
+><option>17</option><option>18</option><option>19</option><option>20</option><
+option>21</option><option>22</option><option>23</option><option>24</option><opt
+ion>25</option><option>26</option><option>27</option><option>28</option><option
+>29</option><option>30</option><option>31</option>
+</select>
+<select name="s2">
+<option>MONTH</option><option>Jan</option><option>Feb</option><option>Mar</opt
+ion><option>Apr</option><option>May</option><option>Jun</option><option>Jul</opt
+ion><option>Aug</option><option>Sep</option><option>Oct</option><option>Nov</o
+ption><option>Dec</option>
+</select>
+<select name="s3">
+<option>YEAR</option><option>1985</option><option>1986</option><option>1987</o
+ption><option>1988</option><option>1989</option><option>1990</option><option>1
+991</option><option>1992</option><option>1993</option><option>1994</option><op
+tion>1995</option><option>1996</option><option>1997</option><option>1998</option>
+<option>1999</option><option>2000</option>
+</select>
+<tr>
+<td><b><font color="red">*</font>Languages Known</b></td> <td><input type="checkbox" name="c1">English<input type="checkbox" name="c2">Telugu<input type="checkbox" name="c3">Hindi
+<input type="checkbox" name="c4">Tamil
+</td>
+</tr>
+<tr>
+<td><b><font color="red">*</font>Address:</b></td>
+<td><textarea name="txt1" rows="5" cols=25></textarea></td>
+</tr>
+</td>
+</tr>
+<tr align="center">
+<td><input type="submit" name="b1" value="Submit"></td>
+<td><input type="reset" name="b2" value="Reset"></td>
+</tr>
+</table>
+</form>
+<h4 align="center"><font color="red">* Fields are Mandatory</font></h4> </body>
+</html>
