@@ -1,0 +1,167 @@
+          6.Creation of information retrieval system using web, PHP and MySQL
+   SOURCE CODE:-
+   
+cart.php
+
+<?php
+session_start();
+$_SESSION['a1']=$_POST['bname'];
+$_SESSION['b1']=$_POST['price'];
+$_SESSION['c1']=$_POST['quantity'];
+$_SESSION['d1']=$_POST['amount'];
+?>
+<html>
+<title>cart page</title>
+<body>
+<center>
+<table width="100%" border="2">
+<tr><th>book name</th>
+<th>price</th>
+<th>quantity</th>
+<th>amount</th>
+</tr>
+<tr>
+<td align="center">xml bible</td>
+<td align="center">$40.5</td>
+<td align="center">01</td>
+<td align="center">$40.5</td>
+</tr>
+<tr>
+<td align="center">java</td>
+<td align="center">$100</td>
+<td align="center">03</td>
+<td align="center">$300</td>
+</tr>
+<tr>
+<td align="center">wt</td>
+<td align="center">$500</td>
+<td align="center">05</td>
+<td align="center">$2500</td>
+</tr>
+<tr>
+<td align="center"><?php echo $_SESSION['a1']; ?></td>
+<td align="center"><?php echo $_SESSION['b1']; ?></td>
+<td align="center"><?php echo $_SESSION['c1']; ?></td>
+<td align="center"><?php echo $_SESSION['d1']; ?></td>
+</tr>
+</table>
+</center>
+<form action="db.php">
+<input type="submit" value="insert into db"/>
+</form>
+<form action="logout.php">
+<input type="submit" value="logout"/>
+</form>
+</body>
+</html>
+
+database.php
+
+<?php
+$c=mysql_connect("localhost","root","");
+$d=mysql_select_db("hari",$c);
+if($c)
+echo"connected to database <br>";
+else
+echo"not connected";
+?>
+
+db.php
+
+<?php
+session_start();
+include("database.php");
+$a2=$_SESSION['a1'];
+$b2=$_SESSION['b1'];
+$c2=$_SESSION['c1'];
+$d2=$_SESSION['d1'];
+//echo $a2;
+/*
+$x="create table cart1(bname varchar(10) notnull,price varchar(10) notnull,quantity varchar(10)notnull,amount varchar(10) notnull)";
+$y=mysql_query($x);
+if($x)
+echo"<br> created";
+else
+echo"<br>not created";
+*/
+$query="insert into cart values($a2,$b2,$c2,$d2)";
+$q=mysql_query($query);
+if($q)
+echo"<br> inserted successfully";
+else
+echo"<br><br> not inserted";
+session_unset();
+?>
+goto_catalogue.php
+<?php
+echo"<br><br><br>";
+?>
+<html>
+<body allign="centre">
+<form action="cart.php" method="post">
+<fieldset>
+<legend>to catalog page</legend>
+book_name::<input type="text" name="bname"/><br><br>
+price ::<input type="text" name="price"/><br><br>
+quantity::<input type="text" name="quantity"/><br><br>
+amount::<input type="text" name="amount"/><br><br>
+<input type="submit" value="submit"/>
+<input type="reset" value="reset"/>
+</fieldset>
+</form>
+</body>
+</html>
+
+login.php
+
+<?php
+echo"hai this is login page";
+?>
+<html>
+<form action="usercheck.php" method="post">
+<fieldset>
+<legend>LOG IN PAGE</legend>
+username::<input type="text" name="uname"/><br><br>
+password::<input type="password" name="pwd"/><br><br>
+<input type="submit" value="login"/>
+<input type="reset" value="reset"/><br><br>
+</fieldset>
+</form>
+</html>
+
+loginout.php
+
+<?php
+echo "logout successfully";
+session_unset();
+?>
+
+usercheck.php
+
+<?php
+include("database.php");
+$r="select * from users";
+$t=mysql_query($r);
+while($u=mysql_fetch_array($t))
+{
+extract($u);
+$x=$uname;
+$y=$password;
+49
+if($_POST['uname']==$x && $_POST['pwd']==$y)
+{
+echo"valid user";
+include("uservalid.php");
+}
+else
+echo"not a valid user";
+}
+?>
+
+uservalid.php
+
+<?php
+?>
+<form action="goto_catalogue.php">
+<input type="submit" value="GOTOCATA"/>
+</form>
