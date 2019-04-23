@@ -1,0 +1,64 @@
+        7.Study of Technologies associated with mobile devices
+*Features of smartphone
+     1. A long-lasting battery
+     2. Warp-speed processing
+     3. Crystal-clear display
+     4. A great camera
+     5. NFC 
+     6. Multiple windows
+     7. Plenty of storage space
+     8. Infrared remote control
+     9. Fingerprint sensor
+     10. Wireless charging
+*Features of Android
+      1.open source
+      2.Larger development
+      3.Increased marketing
+      4.Inter app interaction
+      5.Reduced cost of Development
+      6.Higher success Ratio
+      7.Rich development Environment
+      
+      GUI COMPONENTS:
+File Name : MainActivity.java
+package com.lab.guicomponents;
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+public class MainActivity extends Activity {
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+}
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+// Inflate the menu; this adds items to the action bar if it is present.
+getMenuInflater().inflate(R.menu.main, menu);
+return true;
+}
+}
+File Name: AndroidMainfest.xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+package="com.lab.guicomponents"
+android:versionCode="1"
+android:versionName="1.0" >
+<uses-sdk
+android:minSdkVersion="8"
+android:targetSdkVersion="18" />
+<application
+android:allowBackup="true"
+android:icon="@drawable/ic_launcher"
+android:label="@string/app_name"
+android:theme="@style/AppTheme" >
+<activity
+android:name="com.lab.guicomponents.MainActivity"
+android:label="@string/app_name" >
+<intent-filter>
+<action android:name="android.intent.action.MAIN" />
+<category android:name="android.intent.category.LAUNCHER" />
+</intent-filter>
+</activity>
+</application>
+</manifest>
